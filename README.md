@@ -8,3 +8,6 @@
 
 ??? 래이아웃 테스트 먼저 진행하고
 ??? util 이나 common 에서 처리해보자
+
+
+https://www.youtube.com/watch?v=zkGqeF3u-4E
