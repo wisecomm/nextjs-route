@@ -5,17 +5,24 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   console.log("middleware pathname= " + pathname);
-  let accessToken = request.cookies.get("accessToken")?.value;
+  const accessToken = request.cookies.get("accessToken")?.value;
 
-  accessToken = "1234";
+  // accessToken = "1234";
+  //accessToken = null;
 
-  // 로그인 된 사용자가 로그인 페이지 요청 시 / 페이지로 강제 리다이렉트
-  if (accessToken && pathname.startsWith("/login")) {
-    return NextResponse.redirect(new URL("/", request.url));
+  const publicPaths = ["/", "/login", "/sign-up"];
+  const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
+  const isFile = request.nextUrl.pathname.match(/\.(.*)$/);
+
+  if (isFile) {
+    return NextResponse.next();
   }
 
-  // 로그인 미완료된 사용자가 일반 페이지 요청 시 로그인 페이지로 강제 리다이렉트
-  if (!accessToken && !pathname.startsWith("/login")) {
+  if (isPublicPath && accessToken) {
+    return NextResponse.redirect(new URL("/main", request.url));
+  }
+
+  if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
   /*  
