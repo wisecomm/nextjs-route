@@ -5,6 +5,8 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   console.log("middleware pathname= " + pathname);
+
+  /*
   const accessToken = request.cookies.get("accessToken")?.value;
 
   // accessToken = "1234";
@@ -25,6 +27,8 @@ export function middleware(request: NextRequest) {
   if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
+*/
+
   /*  
   if (pathname.startsWith("/about")) {
     //    return NextResponse.redirect(new URL("/aa", request.url));

@@ -1,7 +1,7 @@
 import React from "react";
 
 function page() {
-  return <div>로그인을 해주세요</div>;
+  return <div>login page</div>;
 }
 
 export default page;

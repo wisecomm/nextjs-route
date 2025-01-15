@@ -4,10 +4,17 @@
 
 # 라우트 그룹 사용
 
-참조 : https://reactnext-central.xyz/blog/nextjs/route-group
+# globals.css 수정 : 메뉴 타이릍 색깔이 흐리게 보여서
 
-??? 래이아웃 테스트 먼저 진행하고
-??? util 이나 common 에서 처리해보자
+??? tailwind.config.ts - 사이트바 css 외부 파일로 이전하기
+??? 탑 바 추가 ㅎㅎㅎ
+??? tail 추가
+??? 차일드 화면들 잘붙는지 확인
 
+확인 사항 : 로그인 시 로그아웃 시 레이아웃 잘되는지 확인함
+http://localhost:3000/about -- 레이아웃 잘됨
+http://localhost:3000/login -- 레이아웃 없음
 
-https://www.youtube.com/watch?v=zkGqeF3u-4E
+참조 :
+https://www.youtube.com/watch?v=zkGqeF3u-4E -- 메뉴
+https://reactnext-central.xyz/blog/nextjs/route-group -- 라우트 그룹

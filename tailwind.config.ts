@@ -9,8 +9,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        sidebar: {
+          active: "#6b32ec",
+          background: "#f5f5ff",
+          iconColor: "#636c80",
+        },
       },
     },
   },
