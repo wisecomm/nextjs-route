@@ -5,11 +5,8 @@ export const apiCall = async () => {
   params.append("user_id", "superadmin");
   params.append("user_pwd", "1234");
 
-  const res: JSON = await fetchWrapper.call(
-    `/astro-v2/astroapi/base/v2/auth/adminlogin?${params.toString()}`,
-    {
-      method: "post",
-    }
+  const res: JSON = await fetchWrapper.post(
+    `/astro-v2/astroapi/base/v2/auth/adminlogin?${params.toString()}`
   );
 
   // Debug logging
