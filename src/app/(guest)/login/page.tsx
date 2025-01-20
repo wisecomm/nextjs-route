@@ -8,10 +8,11 @@ function page() {
 
   const handleLogin = async () => {
     try {
-      const { data, status } = await apiCall();
+      const { data, status,error } = await apiCall();
       
       console.log("login=" + data);
       console.log("login=" + status);
+      console.log("login error: " + error);
     } catch (error) {
       console.log("login error: " + error);
     }

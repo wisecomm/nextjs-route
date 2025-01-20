@@ -1,5 +1,5 @@
 export interface ApiResponse {
-  data: any[];
+  data: any[] | null;
   status: number;
   error: string;
 }
