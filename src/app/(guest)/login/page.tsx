@@ -7,8 +7,15 @@ function page() {
   //  const [boards, setBoards] = useState<Board[]>([]);
 
   const handleLogin = async () => {
-    console.log("login");
-    const { data, status, error } = apiCall();
+    try {
+      const { data, status } = await apiCall();
+      
+      console.log("login=" + data);
+      console.log("login=" + status);
+    } catch (error) {
+      console.log("login error: " + error);
+    }
+
   };
 
   return (

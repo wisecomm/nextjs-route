@@ -1,10 +1,7 @@
 import fetchWrapper from "@/app/lib/fetchWrapper";
+import { ApiResponse } from "@/types";
 
-export const apiCall = async (): Promise<{
-  data: any[];
-  code: string;
-  error: string;
-}> => {
+export const apiCall = async (): Promise<ApiResponse> => {
   const params = new URLSearchParams();
   params.append("user_id", "superadmin");
   params.append("user_pwd", "1234");
@@ -18,5 +15,5 @@ export const apiCall = async (): Promise<{
   console.log("API Response:", res.data);
   console.log("Response type:", typeof res);
 
-  return { data: res.data, code: res.code, error: res.message };
+  return { data: res.data, status: res.code, error: res.message };
 };

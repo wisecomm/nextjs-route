@@ -1,8 +1,8 @@
-export interface LoginReturn {
-  code: string;
-  data: LoginData;
+export interface ApiResponse {
+  data: any[];
+  status: number;
+  error: string;
 }
-
 interface LoginData {
   corp_code: string;
   key: string;
