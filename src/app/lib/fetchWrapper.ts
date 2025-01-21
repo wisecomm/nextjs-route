@@ -1,7 +1,7 @@
 // src/lib/fetchWrapper.ts
 //import showToast from "@/utils/showToast";
-//import { getToken } from "./getToken";
-//import { getReissuanceToken } from "./getReissuanceToken";
+
+import { getToken } from "../utils/cookie";
 
 class FetchWrapper {
   baseUrl = "";
@@ -11,7 +11,13 @@ class FetchWrapper {
   }
 
   async get(url: string) {
-    const response = await fetch(`${this.baseUrl}${url}`);
+    const response = await fetch(`${this.baseUrl}${url}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
+      },
+    });
     return response.json();
   }
 
@@ -21,6 +27,7 @@ class FetchWrapper {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
       },
     });
     return response.json();
@@ -32,6 +39,7 @@ class FetchWrapper {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
       },
     });
     return response.json();
@@ -40,12 +48,15 @@ class FetchWrapper {
   async delete(url: string) {
     const response = await fetch(`${this.baseUrl}${url}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
+      },
     });
     return response.json();
   }
 }
 
-//const fetchWrapper = new FetchWrapper("/api");
 const fetchWrapper = new FetchWrapper(
   `${process.env.NEXT_PUBLIC_BASE_URL}` || ""
 );

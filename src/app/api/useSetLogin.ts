@@ -1,10 +1,11 @@
 import fetchWrapper from "@/app/lib/fetchWrapper";
 import { ApiResponse } from "@/types";
 
-export const apiCall = async (): Promise<ApiResponse> => {
+export const setLogin = async () => {
+  //  export const apiCall = async (): Promise<ApiResponse> => {
   const params = new URLSearchParams();
   params.append("user_id", "superadmin");
-  params.append("user_pwd", "gntel2024");
+  params.append("user_pwd", "1234");
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const res: any = await fetchWrapper.post(
@@ -12,8 +13,8 @@ export const apiCall = async (): Promise<ApiResponse> => {
   );
 
   // Debug logging
-  console.log("API Response:", res.data);
-  console.log("Response type:", typeof res);
+  console.log("apiCall res.data:", res.data);
+  console.log("apiCall res:", res);
 
   return { data: res.data, status: res.status, error: res.message };
 };

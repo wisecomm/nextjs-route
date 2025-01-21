@@ -1,9 +1,15 @@
-export interface ApiResponse {
-  data: any[] | null;
+type PostgrestError = {
+  message: string;
+  code: string;
+};
+
+export interface ApiResponse<T> {
+  data: T | null;
   status: number;
-  error: string;
+  error: PostgrestError | null;
 }
-interface LoginData {
+
+export interface LoginData {
   corp_code: string;
   key: string;
   login_ip: string;
