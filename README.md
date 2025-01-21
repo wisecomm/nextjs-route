@@ -13,3 +13,7 @@ http://localhost:3000/login -- 레이아웃 없음
 참조 :
 https://www.youtube.com/watch?v=zkGqeF3u-4E -- 메뉴
 https://reactnext-central.xyz/blog/nextjs/route-group -- 라우트 그룹
+
+- shadcn 전체 설정,
+  npx shadcn@latest add --all
+  index.ts 추가 (import 한번에 함)
