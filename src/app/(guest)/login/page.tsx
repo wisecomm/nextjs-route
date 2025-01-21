@@ -1,62 +1,68 @@
 "use client";
 
-import { getJobLogs } from "@/app/api/useGetJobLogs";
-import { setLogin } from "@/app/api/useSetLogin";
-import { getToken, setToken } from "@/app/utils/cookie";
-import { LoginData } from "@/types";
-import { useState } from "react";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Input,
+} from "@/components/ui";
+import { toast } from "@/hooks/use-toast";
+import React from "react";
 
-function Page() {
-  const [logindata, setLogindata] = useState<LoginData | null>(null);
-
+function LoginPage() {
   const handleLogin = async () => {
-    try {
-      const { data, status, error } = await setLogin();
-
-      console.log("handleLogin data=" + data);
-      console.log("handleLogin dataKKK=" + data.corp_code);
-      console.log("handleLogin status=" + status);
-      console.log("handleLogin error=" + error);
-
-      setToken(data.key);
-
-      setLogindata(data);
-    } catch (error) {
-      console.log("login error: " + error);
-    }
-  };
-
-  const handleGetToken = async () => {
-    try {
-      const token = getToken();
-      console.log("gettoken data=" + token);
-    } catch (error) {
-      console.log("logtokenn error: " + error);
-    }
-  };
-
-  const handleJobLog = async () => {
-    try {
-      const { data, status, error } = await getJobLogs("1000");
-
-      console.log("handleLogin data=" + data);
-      console.log("handleLogin dataKKK=" + data.corp_code);
-      console.log("handleLogin status=" + status);
-      console.log("handleLogin error=" + error);
-    } catch (error) {
-      console.log("login error: " + error);
-    }
+    toast({
+      variant: "destructive",
+      title: "기입되지 않은 데이터(값)가 있습니다.",
+      description: "이메일과 비밀번호는 필수 값입니다.",
+    });
   };
 
   return (
-    <div>
-      <button onClick={handleLogin}>로그인</button>
-      <p>{logindata?.key}</p>
-      <button onClick={handleGetToken}>토컨</button>
-      <p>{logindata?.key}</p>
-      <button onClick={handleJobLog}>작업이력</button>
+    <div className="page">
+      <Card className="w-[400px]">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">로그인</CardTitle>
+          <CardDescription>로그인을 위한 정보를 입력해주세요.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-6">
+          <div className="grid gap-2">
+            <p>이메일</p>
+            <Input
+              id="email"
+              type="email"
+              required
+              placeholder="이메일을 입력해주세요."
+            ></Input>
+          </div>
+          <div className="relative grid gap-2">
+            <div className="flex justify-between">
+              <p>비밀번호</p>
+              <p className="underline cursor-pointer">비밀번호를 잊으셨나요?</p>
+            </div>
+            <Input
+              id="password"
+              type="password"
+              required
+              placeholder="비밀번호을 입력해주세요."
+            ></Input>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button
+            className="w-full bg-[#E79057] hover:bg-[#E26F24] hover:ring-1 hover:ring-[#E26F24] hover:ring-offset-1 active:bg-[#D5753D] hover:shadow-lg"
+            onClick={handleLogin}
+          >
+            로그인
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
 
-export default Page;
+export default LoginPage;

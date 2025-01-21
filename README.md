@@ -17,3 +17,5 @@ https://reactnext-central.xyz/blog/nextjs/route-group -- 라우트 그룹
 - shadcn 전체 설정,
   npx shadcn@latest add --all
   index.ts 추가 (import 한번에 함)
+- sass 사용해서 ( --froce 붙임)
+  npm i sass --froce
