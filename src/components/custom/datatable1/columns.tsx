@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Task } from "./data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
 import { Checkbox } from "@/components/ui";
 
 export const columns: ColumnDef<Task>[] = [
@@ -81,9 +80,5 @@ export const columns: ColumnDef<Task>[] = [
         </div>
       );
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
