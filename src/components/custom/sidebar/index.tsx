@@ -34,8 +34,8 @@ const items: ISidebarItem[] = [
     icon: BadgeDollarSign,
     items: [
       {
-        name: "General",
-        path: "/settings",
+        name: "데이터 테이블 테스트",
+        path: "/datatabletest",
       },
       {
         name: "Security",
