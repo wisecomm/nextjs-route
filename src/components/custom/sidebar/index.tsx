@@ -38,8 +38,8 @@ const items: ISidebarItem[] = [
         path: "/datatabletest",
       },
       {
-        name: "Security",
-        path: "/settings/security",
+        name: "데이터 테이블 테스트(1)",
+        path: "/datatabletest1",
       },
       {
         name: "Notifications",
