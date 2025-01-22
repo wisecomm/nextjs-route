@@ -29,9 +29,23 @@ const items: ISidebarItem[] = [
     icon: LayoutDashboard,
   },
   {
-    name: "Transaction",
-    path: "/transaction",
+    name: "페이지 테스트",
+    path: "/pagetest",
     icon: BadgeDollarSign,
+    items: [
+      {
+        name: "General",
+        path: "/settings",
+      },
+      {
+        name: "Security",
+        path: "/settings/security",
+      },
+      {
+        name: "Notifications",
+        path: "/settings/notifications",
+      },
+    ],
   },
   {
     name: "Payment",
