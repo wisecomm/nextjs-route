@@ -6,8 +6,12 @@ export function middleware(request: NextRequest) {
 
   console.log("middleware pathname= " + pathname);
 
-  /*
   const accessToken = request.cookies.get("accessToken")?.value;
+  console.log("accessToken = " + accessToken);
+  if (!accessToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+  /*
 
   // accessToken = "1234";
   //accessToken = null;

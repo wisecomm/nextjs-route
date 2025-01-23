@@ -17,8 +17,8 @@ export const getCookie = (name: string): string | null => {
 };
 
 export const getToken = () => {
-  return getCookie("token");
+  return getCookie("accessToken");
 };
 export const setToken = (token: string) => {
-  setCookie("token", token, 1);
+  setCookie("accessToken", token, 1);
 };

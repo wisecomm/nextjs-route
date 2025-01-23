@@ -42,14 +42,14 @@ const items: ISidebarItem[] = [
         path: "/datatabletest1",
       },
       {
-        name: "Notifications",
-        path: "/settings/notifications",
+        name: "지불 리스트 테스트",
+        path: "/payments",
       },
     ],
   },
   {
     name: "Payment",
-    path: "/payment",
+    path: "/payments",
     icon: WalletCards,
   },
   {

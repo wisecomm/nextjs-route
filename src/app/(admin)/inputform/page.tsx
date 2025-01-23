@@ -5,7 +5,7 @@ import Image from "next/image";
 import { setLogin } from "@/app/api/useSetLogin";
 import { setToken } from "@/app/utils/cookie";
 
-function Login() {
+function InputForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -89,4 +89,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default InputForm;
