@@ -39,7 +39,7 @@ function Login() {
         <h2 className="text-2xl font-bold text-center">Login</h2>
         <Image
           className="dark:invert"
-          src="/next.svg"
+          src="/image/next.svg"
           alt="Next.js logo"
           width={180}
           height={38}

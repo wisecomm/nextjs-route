@@ -9,17 +9,8 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   console.log("accessToken = " + accessToken);
 
-  if (!accessToken) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
   const publicPaths = ["/", "/login", "/sign-up"];
   const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
-  const isFile = request.nextUrl.pathname.match(/\.(.*)$/);
-
-  if (isFile) {
-    return NextResponse.next();
-  }
 
   if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
@@ -43,7 +34,7 @@ export const config = {
      * - server/ (네트워크 요청 경로)
      */
     {
-      source: "/((?!api|_next/static|_next/image|favicon.ico|server).*)",
+      source: "/((?!api|_next/static|image|_next/image|favicon.ico|server).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
         { type: "header", key: "purpose", value: "prefetch" },
