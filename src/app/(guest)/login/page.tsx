@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { setLogin } from "@/app/api/useSetLogin";
+//import { setLogin } from "@/app/api/useSetLogin";
 import { setToken } from "@/app/utils/cookie";
 
 function Login() {
@@ -16,14 +16,17 @@ function Login() {
     console.log("Password:", password);
 
     try {
+      /*
       const { data, status, error } = await setLogin();
 
       console.log("handleLogin data=" + data);
-      console.log("handleLogin dataKKK=" + data.corp_code);
       console.log("handleLogin status=" + status);
       console.log("handleLogin error=" + error);
 
       setToken(data.key);
+      */
+
+      setToken("test-token-1234567");
       window.location.replace("/main");
     } catch (error) {
       console.log("login error: " + error);

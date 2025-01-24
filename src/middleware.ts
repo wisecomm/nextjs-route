@@ -8,16 +8,10 @@ export function middleware(request: NextRequest) {
 
   const accessToken = request.cookies.get("accessToken")?.value;
   console.log("accessToken = " + accessToken);
-/*
+
   if (!accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-#/
-
-  /*
-
-  // accessToken = "1234";
-  //accessToken = null;
 
   const publicPaths = ["/", "/login", "/sign-up"];
   const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
@@ -27,21 +21,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (isPublicPath && accessToken) {
-    return NextResponse.redirect(new URL("/main", request.url));
-  }
-
   if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-*/
 
-  /*  
-  if (pathname.startsWith("/about")) {
-    //    return NextResponse.redirect(new URL("/aa", request.url));
-    return NextResponse.rewrite(new URL("/aa", request.url));
+  if (isPublicPath && accessToken) {
+    return NextResponse.redirect(new URL("/main", request.url));
   }
-  */
 
   return NextResponse.next();
 }
