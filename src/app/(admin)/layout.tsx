@@ -1,4 +1,5 @@
 import Sidebar from "@/components/custom/sidebar";
+import { ThemeProvider } from "@/components/custom/ThemeProvider";
 import TopHeaderBar from "@/components/custom/topheaderbar/TopHeaderBar";
 
 export default function RootLayout({
@@ -7,6 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ThemeProvider>
     <div className="flex h-screen w-full bg-white">
       <Sidebar />
       {/* ml-64 사이드바 너비 왼쪽 조절 */}
@@ -16,5 +18,6 @@ export default function RootLayout({
         {children}
       </div>
     </div>
+    </ThemeProvider>
   );
 }
