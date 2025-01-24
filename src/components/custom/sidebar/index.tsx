@@ -81,7 +81,7 @@ const items: ISidebarItem[] = [
 const Sidebar = () => {
   return (
     <div className="fixed top-0 left-0 h-screen w-64 bg-white shadow-lg z-10 p-4">
-      <Image width={160} height={160} src="/logo-expanded.png" alt="Logo" />
+      <Image width={50} height={50} src="/image/logo.png" alt="Logo" />
       <div className="flex flex-col space-y-2">
         {items.map((item, index) => (
           <SidebarItem key={index} item={item} />
