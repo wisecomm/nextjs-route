@@ -43,6 +43,7 @@ function Login() {
           alt="Next.js logo"
           width={180}
           height={38}
+          style={{ width: 180, height: 38 }}
           priority
         />
         <form onSubmit={handleLogin} className="space-y-4">
