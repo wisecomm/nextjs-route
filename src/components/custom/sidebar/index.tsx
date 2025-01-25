@@ -63,8 +63,8 @@ const items: ISidebarItem[] = [
     icon: Settings,
     items: [
       {
-        name: "General",
-        path: "/settings",
+        name: "시스템 설정",
+        path: "/system-setting",
       },
       {
         name: "Security",
