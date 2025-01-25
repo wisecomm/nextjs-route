@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
   const accessToken = request.cookies.get("accessToken")?.value;
   console.log("accessToken = " + accessToken);
-
+/*
   const publicPaths = ["/", "/login", "/sign-up"];
   const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
 
@@ -19,6 +19,7 @@ export function middleware(request: NextRequest) {
   if (isPublicPath && accessToken) {
     return NextResponse.redirect(new URL("/main", request.url));
   }
+*/
 
   return NextResponse.next();
 }
