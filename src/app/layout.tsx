@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
+import { FONT_NOTOSANSKR } from "./utils/fonts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`)}
+        className={cn(`${FONT_NOTOSANSKR.className} antialiased`)}
       >
         {children}
         {/* SHADCN Toaster 사용함 */}
