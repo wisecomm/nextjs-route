@@ -38,11 +38,11 @@ const items = [
         items: [
           {
             title: "조직도",
-            url: "#",
+            url: "/systemsetting",
           },
           {
             title: "인사정보",
-            url: "#",
+            url: "/payments",
           },
         ],
       },
