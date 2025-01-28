@@ -31,21 +31,17 @@ import { NavMain } from "./nav-main";
 // Menu items.
 const items = [
     {
-        title: "Playground",
+        title: "조직관리",
         url: "#",
         icon: SquareTerminal,
         isActive: true,
         items: [
           {
-            title: "History",
+            title: "조직도",
             url: "#",
           },
           {
-            title: "Starred",
-            url: "#",
-          },
-          {
-            title: "Settings",
+            title: "인사정보",
             url: "#",
           },
         ],
