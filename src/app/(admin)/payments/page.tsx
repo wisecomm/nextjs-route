@@ -1,7 +1,6 @@
 import { Payment, columns } from "./columns";
-import { DataTable } from "./data-table";
-//import { DataTable } from "@/components/custom/datatable1/data-table";
-//import { DataTableToolbar } from "./data-table-toolbar";
+import { DataTable } from "@/components/custom/datatable/data-table";
+import { DataTableToolbar } from "./data-table-toolbar";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -39,7 +38,7 @@ export default async function DemoPage() {
       <DataTable
         columns={columns}
         data={data}
-        // DataTableToolbar={DataTableToolbar}
+        DataTableToolbar={DataTableToolbar}
       />
     </div>
   );

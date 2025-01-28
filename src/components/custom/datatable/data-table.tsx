@@ -10,6 +10,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
  
+import { Table as TanstackTable } from '@tanstack/react-table';
+
 import {
     Button,
   Table,
@@ -24,11 +26,13 @@ import { useState } from "react"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  DataTableToolbar?: React.ComponentType<{ table: TanstackTable<TData> }>;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
+    DataTableToolbar,
   }: DataTableProps<TData, TValue>) {
 
     const [sorting, setSorting] = useState<SortingState>([])
@@ -48,7 +52,8 @@ export function DataTable<TData, TValue>({
      })
    
     return (
-        <div>
+      <div className="space-y-4">
+           {DataTableToolbar && <DataTableToolbar table={table} />}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
