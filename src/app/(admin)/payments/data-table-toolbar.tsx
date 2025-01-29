@@ -4,7 +4,7 @@ import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/custom/datatable1/data-table-view-options";
 import { toast } from "@/hooks/use-toast";
-import { Label } from "@/components/ui";
+import { Button, Label } from "@/components/ui";
 import { LabelDatePicker } from "@/components/custom/datepicker/LabelDatePicker";
 import { useState } from "react";
 
@@ -32,6 +32,7 @@ export function DataTableToolbar<TData>({
       <div className="flex items-center space-x-4">
         <LabelDatePicker label={"시작일"} value={startDate} onChange={setStartDate} />
         <LabelDatePicker label={"종료일"} value={endDate} onChange={setEndDate} />
+        <Button>검색</Button>
       </div>
       <DataTableViewOptions table={table} onSearchGo={handleOnSearchGo} />
     </div>

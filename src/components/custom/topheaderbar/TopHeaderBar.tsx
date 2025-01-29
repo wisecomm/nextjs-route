@@ -4,7 +4,7 @@ import { Label } from "@/components/ui";
 
 const TopHeaderBar = () => {
   return (
-    <div className="flex items-center justify-between p-4">
+    <div className="flex items-center justify-between p-4" style={{ backgroundColor: 'rgb(82, 88, 125)' }}>
       {/* TITLE BAR */}
       <div className="flex items-center text-9xl font-bold">
         <Label>Email Anyalyze System V1</Label>
