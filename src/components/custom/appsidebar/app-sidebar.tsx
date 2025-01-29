@@ -27,6 +27,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main";
+import NavTop from "./nav-top";
+import { Separator } from "@/components/ui";
 
 // Menu items.
 const items = [
@@ -101,8 +103,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
-          {/* <TeamSwitcher teams={data.teams} /> */}
+          <NavTop />
         </SidebarHeader>
+        <Separator />
         <SidebarContent>
           <NavMain items={items} />
         </SidebarContent>
