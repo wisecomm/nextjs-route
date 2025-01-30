@@ -1,6 +1,7 @@
 import { Payment, columns } from "./columns";
 import { DataTable } from "@/components/custom/datatable/data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
+import ChildHeaderBar from "@/components/custom/topheaderbar/ChildHeaderBar";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -34,12 +35,19 @@ export default async function DemoPage() {
   const data = await getData();
 
   return (
-    <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
-      <DataTable
-        columns={columns}
-        data={data}
-        DataTableToolbar={DataTableToolbar}
-      />
+    <div style={{ backgroundColor: 'rgb(232, 234, 244)' }}>
+      <div className="flex flex-1 flex-col gap-4 p-4">
+        <ChildHeaderBar />
+        <div className="bg-white p-2">
+        <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
+          <DataTable
+            columns={columns}
+            data={data}
+            DataTableToolbar={DataTableToolbar}
+          />
+        </div>
+        </div>
+        </div>
     </div>
   );
 }
