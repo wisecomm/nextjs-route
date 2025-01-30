@@ -7,10 +7,12 @@ export function middleware(request: NextRequest) {
   console.log("middleware pathname= " + pathname);
 
   const accessToken = request.cookies.get("accessToken")?.value;
-  console.log("accessToken = " + accessToken);
 
-  const publicPaths = ["/", "/login", "/sign-up"];
+  const publicPaths = ["/login", "/sign-up"];
   const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
+
+  console.log("accessToken = " + accessToken);
+  console.log("isPublicPath = " + isPublicPath);
 
   if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
