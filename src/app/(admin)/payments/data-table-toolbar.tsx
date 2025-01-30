@@ -2,7 +2,7 @@
 
 import { Table } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/custom/datatable1/data-table-view-options";
+import { DataTableViewOptions } from "@/components/custom/datatable/data-table-view-options";
 import { toast } from "@/hooks/use-toast";
 import { Button, Label } from "@/components/ui";
 import { LabelDatePicker } from "@/components/custom/datepicker/LabelDatePicker";

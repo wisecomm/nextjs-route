@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Checkbox } from "@/components/ui";
-import { DataTableColumnHeader } from "@/components/custom/datatable1/data-table-column-header";
+import { DataTableColumnHeader } from "@/components/custom/datatable/data-table-column-header";
 
 export type Payment = {
   id: string;
