@@ -7,3 +7,15 @@
 # globals.css 수정 : 메뉴 타이릍 색깔이 흐리게 보여서
 
 
+#################################################################
+# 참조 사이트 
+#################################################################
+- 메뉴바 
+https://ui.shadcn.com/docs/components/sidebar
+
+- 그리드
+https://ui.shadcn.com/examples/tasks
+
+- 테마 설정 테스트 사이트
+https://gradient.page/tools/shadcn-ui-theme-generator
+
