@@ -7,7 +7,7 @@ const TopHeaderBar = () => {
     <div className="flex items-center justify-between p-4" style={{ backgroundColor: 'rgb(82, 88, 125)' }}>
     {/* TITLE BAR */}
       <div className="flex items-center">
-        <Label className="text-xl text-white">Email Anyalyze System V1</Label>
+        <Label className="text-lg text-white">Email Anyalyze System V1</Label>
       </div>
       {/* ICONS AND USER */}
       <div className="flex items-center gap-6 justify-end">

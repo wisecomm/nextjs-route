@@ -5,7 +5,7 @@ const ChildHeaderBar = () => {
   return (
     <div className="flex items-center justify-between gap-2">
       <div className="flex items-center text-9xl font-bold">
-        <Label className="text-xl">인사 정보</Label>
+        <Label className="text-lg">인사 정보</Label>
       </div>
 
       <div className="flex items-center gap-6 justify-end">

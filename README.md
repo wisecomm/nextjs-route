@@ -1,3 +1,6 @@
+# npm install 에러시 npm install -legacy-peer-deps 
+
+
 # 프로젝트 생성 : npx create-next-app@latest src 디렉토리 선택
 
 # middleware.ts 추가 : src 디렉토리 아래 존재
@@ -12,6 +15,8 @@
 #################################################################
 - 메뉴바 
 https://ui.shadcn.com/docs/components/sidebar
+- 참조 샘플
+https://ui.shadcn.com/examples/forms/account
 
 - 그리드
 https://ui.shadcn.com/examples/tasks
