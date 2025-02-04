@@ -10,14 +10,14 @@ export default function RootLayout({
 }>) {
   return (
     <ThemeProvider>
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <TopHeaderBar />
-        <Separator />
-        {children}
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <TopHeaderBar />
+          <Separator />
+          {children}
         </SidebarInset>
-        </SidebarProvider>
+      </SidebarProvider>
     </ThemeProvider>
   );
 }

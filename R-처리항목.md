@@ -17,3 +17,11 @@
 # 에러 사항
 - 메뉴 클릭 시 화면이 흔들림
 
+
+??? forms/input 완료 시킴 
+-- 두개 참조함
+    forms/acount, 
+    https://github.com/umairjameel321/next15forms
+
+-- 2번째 예제에서 폼서브및 추가함
+    
