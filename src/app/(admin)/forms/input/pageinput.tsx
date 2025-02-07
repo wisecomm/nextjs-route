@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -29,35 +29,46 @@ function PageInput() {
     defaultValues,
   })
 
-  function onSubmit(data: AccountFormValues) {
-    console.log(data)
+  const [isLoading, setIsLoading] = useState(false);
 
-    // 전송 전에 입력필드 검증
-    const result = accountFormSchema.safeParse(data)
-    if (!result.success) {
-      console.log("입력필드 에러 : " + result.error)
-      const firstError = result.error.errors[0]
+  async function onSubmit(data: AccountFormValues) {
+    try {
+      console.log(data)
+
+      setIsLoading(true)
+  
+      // 전송 전에 입력필드 검증
+      const result = accountFormSchema.safeParse(data)
+      if (!result.success) {
+        console.log("입력필드 에러 : " + result.error)
+        const firstError = result.error.errors[0]
+        toast({
+          title: "Validation Error",
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">{JSON.stringify(firstError.message, null, 2)}</code>
+            </pre>
+          ),
+        })
+        return
+      }
+
       toast({
-        title: "Validation Error",
+        title: "You onSubmit the following values:",
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(firstError.message, null, 2)}</code>
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
           </pre>
         ),
       })
-      return
+    } catch (error) {
+      console.log("onSubmit error: " + error)
+    } finally {
+      setIsLoading(false)
     }
 
-    toast({
-      title: "You onSubmit the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
   }
-
+  
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
       <Card className={cn("w-[380px]")}>
@@ -66,7 +77,7 @@ function PageInput() {
           <CardDescription>필수 정보를 입력헤볼게요.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form>
             <div className="mb-4">
               <Label htmlFor="age">Username</Label>
               <Input {...form.register('username')} id="username" placeholder="Enter your username" />
@@ -79,7 +90,7 @@ function PageInput() {
               <Label htmlFor="hobby">취미</Label>
               <Input {...form.register('hobby')} id="hobby" />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button onClick={form.handleSubmit(onSubmit)} disabled={isLoading}>전송</Button>
           </form>
         </CardContent>
       </Card>
