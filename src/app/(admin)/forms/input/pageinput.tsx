@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { toast } from '@/hooks/use-toast'
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input } from '@/components/ui'
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 function PageInput() {
@@ -68,15 +68,15 @@ function PageInput() {
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="mb-4">
-              <label htmlFor="username">Username</label>
+              <Label htmlFor="age">Username</Label>
               <Input {...form.register('username')} id="username" placeholder="Enter your username" />
             </div>
             <div className="mb-4">
-              <label htmlFor="age">Age</label>
+              <Label htmlFor="age">Age</Label>
               <Input {...form.register('age')} id="age" type="number" placeholder="Enter your age" />
             </div>
             <div className="mb-4">
-              <label htmlFor="hobby">취미</label>
+              <Label htmlFor="hobby">취미</Label>
               <Input {...form.register('hobby')} id="hobby" />
             </div>
             <Button type="submit">Submit</Button>
