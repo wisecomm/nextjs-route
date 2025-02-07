@@ -1,5 +1,4 @@
 import { AppSidebar } from "@/components/custom/appsidebar/app-sidebar";
-import { ThemeProvider } from "@/components/custom/ThemeProvider";
 import TopHeaderBar from "@/components/custom/topheaderbar/TopHeaderBar";
 import { Separator, SidebarInset, SidebarProvider } from "@/components/ui";
 
@@ -9,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ThemeProvider>
+    // <ThemeProvider>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
@@ -18,6 +17,6 @@ export default function RootLayout({
           {children}
         </SidebarInset>
       </SidebarProvider>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
