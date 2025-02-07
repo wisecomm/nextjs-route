@@ -32,6 +32,7 @@ function PageInput() {
   function onSubmit(data: AccountFormValues) {
     console.log(data)
 
+    // 전송 전에 입력필드 검증
     const result = accountFormSchema.safeParse(data)
     if (!result.success) {
       console.log("입력필드 에러 : " + result.error)
