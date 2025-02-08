@@ -92,13 +92,13 @@ function Login() {
             <Label htmlFor="userid" className="block text-sm font-medium text-gray-700">
               사용자 아이디
             </Label>
-            <Input {...formData.register('userid')} id="userid" placeholder="Enter your username" />
+            <Input {...formData.register('userid')} id="userid" placeholder="Enter your userid" />
           </div>
           <div>
-            <Label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <Label htmlFor="password" className="block text-sm font-medium text-gray-700">
               패스워드
             </Label>
-            <Input {...formData.register('password')} id="password" placeholder="Enter your username" type="password" />
+            <Input {...formData.register('password')} id="password" placeholder="Enter your password" type="password" />
           </div>
           <Button type='submit' className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
             disabled={isLoading}>

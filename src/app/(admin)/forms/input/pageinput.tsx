@@ -14,7 +14,7 @@ function PageInput() {
     username: z.string().min(2, {
       message: "사용자 이름을 입력하세요.",
     }),
-    age: z.number(),
+    age: z.number().optional(),
     hobby: z.string().min(2, {
       message: "취미를 입력하세요.",
     }),
@@ -79,7 +79,7 @@ function PageInput() {
         <CardContent>
           <form onSubmit={formData.handleSubmit(onSubmit)}>
             <div className="mb-4">
-              <Label htmlFor="age">Username</Label>
+              <Label htmlFor="username">Username</Label>
               <Input {...formData.register('username')} id="username" placeholder="Enter your username" />
             </div>
             <div className="mb-4">
