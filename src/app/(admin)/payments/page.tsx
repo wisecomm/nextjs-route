@@ -57,36 +57,36 @@ export default function DemoPage() {
       <div className="flex flex-1 flex-col gap-4 p-4">
         <ChildHeaderBar />
         <div className="bg-white p-2">
-        <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
-          <DataTable
-            columns={columns}
-            data={tableData}
-            DataTableToolbar={DataTableToolbar}
-          />
-        <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIsModalOpen(true)}
-        >
-          추가
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-        >
-          삭제
-        </Button>
-      </div>
-        </div>
+          <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
+            <DataTable
+              columns={columns}
+              data={tableData}
+              DataTableToolbar={DataTableToolbar}
+            />
+            <div className='flex items-center justify-between'>
+              <div className="flex items-center space-x-2 py-4">
+                <Button variant="outline" size="sm">
+                  조회
+                </Button>
+              </div>
+              <div className="flex items-center justify-end space-x-2 py-4">
+                <Button variant="outline" size="sm" onClick={() => setIsModalOpen(true)}>
+                  추가
+                </Button>
+                <Button variant="outline" size="sm">
+                  삭제
+                </Button>
+              </div>
+            </div>
+          </div>
 
         </div>
-        </div>
-        <Modal
+      </div>
+      <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAdd}
-      />        
+      />
     </div>
   );
 }
