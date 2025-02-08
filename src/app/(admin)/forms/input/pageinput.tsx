@@ -25,7 +25,7 @@ function PageInput() {
     age: 20,
     hobby: '',
   }
-  const form = useForm<AccountFormValues>({
+  const formData = useForm<AccountFormValues>({
     defaultValues,
   })
 
@@ -77,20 +77,20 @@ function PageInput() {
           <CardDescription>필수 정보를 입력헤볼게요.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={formData.handleSubmit(onSubmit)}>
             <div className="mb-4">
               <Label htmlFor="age">Username</Label>
-              <Input {...form.register('username')} id="username" placeholder="Enter your username" />
+              <Input {...formData.register('username')} id="username" placeholder="Enter your username" />
             </div>
             <div className="mb-4">
               <Label htmlFor="age">Age</Label>
-              <Input {...form.register('age')} id="age" type="number" placeholder="Enter your age" />
+              <Input {...formData.register('age')} id="age" type="number" placeholder="Enter your age" />
             </div>
             <div className="mb-4">
               <Label htmlFor="hobby">취미</Label>
-              <Input {...form.register('hobby')} id="hobby" />
+              <Input {...formData.register('hobby')} id="hobby" />
             </div>
-            <Button onClick={form.handleSubmit(onSubmit)} disabled={isLoading}>전송</Button>
+            <Button type='submit' disabled={isLoading}>전송</Button>
           </form>
         </CardContent>
       </Card>
