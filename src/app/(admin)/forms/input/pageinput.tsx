@@ -7,6 +7,7 @@ import { z } from "zod"
 import { toast } from '@/hooks/use-toast'
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@/components/ui'
 import { cn } from '@/lib/utils'
+import { showToastMessage } from '@/utils/toastUtils'
 
 function PageInput() {
 
@@ -41,26 +42,13 @@ function PageInput() {
       const result = accountFormSchema.safeParse(data)
       if (!result.success) {
         console.log("입력필드 에러 : " + result.error)
+
         const firstError = result.error.errors[0]
-        toast({
-          title: "Validation Error",
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(firstError.message, null, 2)}</code>
-            </pre>
-          ),
-        })
+        showToastMessage("Validation Error", JSON.stringify(firstError.message, null, 2))
         return
       }
 
-      toast({
-        title: "You onSubmit the following values:",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      })
+      showToastMessage("You onSubmit the following values", JSON.stringify(data, null, 2))
     } catch (error) {
       console.log("onSubmit error: " + error)
     } finally {
