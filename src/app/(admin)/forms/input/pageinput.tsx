@@ -1,94 +1,88 @@
 "use client"
 
-import React, {useActionState, useState} from 'react'
-import { Form } from '@/components/ui/form'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 
 import { toast } from '@/hooks/use-toast'
-import { Button } from '@/components/ui'
-import { formatErrorMessages } from "@/app/utils/utils";
-import { saveUser } from './userActions'
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from '@/components/ui'
+import { cn } from '@/lib/utils'
+import { showToastMessage } from '@/utils/toastUtils'
 
-const accountFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: "Name must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Name must not be longer than 30 characters.",
-    }),
-})
-
-type AccountFormValues = z.infer<typeof accountFormSchema>
-
-const defaultValues: Partial<AccountFormValues> = {
-  // name: "Your name",
-  // dob: new Date("2023-01-23"),
-}
 function PageInput() {
 
-  const form = useForm<AccountFormValues>({
-    resolver: zodResolver(accountFormSchema),
+  const accountFormSchema = z.object({
+    username: z.string().min(2, {
+      message: "사용자 이름을 입력하세요.",
+    }),
+    age: z.number().optional(),
+    hobby: z.string().min(2, {
+      message: "취미를 입력하세요.",
+    }),
+  })
+  type AccountFormValues = z.infer<typeof accountFormSchema>
+  const defaultValues: Partial<AccountFormValues> = {
+    username: "홍길동",
+    age: 20,
+    hobby: '',
+  }
+  const formData = useForm<AccountFormValues>({
     defaultValues,
   })
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function onSubmit(data: AccountFormValues) {
+    try {
+      console.log(data)
+
+      setIsLoading(true)
   
-  function onSubmit(data: AccountFormValues) {
-    console.log(data)
+      // 전송 전에 입력필드 검증
+      const result = accountFormSchema.safeParse(data)
+      if (!result.success) {
+        console.log("입력필드 에러 : " + result.error)
 
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
-  }
+        const firstError = result.error.errors[0]
+        showToastMessage("Validation Error", JSON.stringify(firstError.message, null, 2))
+        return
+      }
 
-    const [errorMessages, setErrorMessages] = useState("");
-    // const [state, formAction] = useActionState(saveUser, {
-    //   error: false,
-    //   success: false,
-    // });
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const fields = Object.fromEntries(formData);
-    // console.log(fields);
-
-    const validation = accountFormSchema.safeParse(fields);
-    if (!validation.success) {
-      // console.log(validation.error.flatten().fieldErrors);
-      setErrorMessages(
-        formatErrorMessages(validation.error.flatten().fieldErrors)
-      );
-    } else {
-//      formAction({ formData });
+      showToastMessage("You onSubmit the following values", JSON.stringify(data, null, 2))
+    } catch (error) {
+      console.log("onSubmit error: " + error)
+    } finally {
+      setIsLoading(false)
     }
-  };
 
-
+  }
+  
   return (
-    <div className="border border-gray-600 w-[600px] rounded-lg p-8">
-      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name : </label>
-        <input type="text" id="name" name="name" />
-      </div>
-      <div>
-        <label htmlFor="age">Age : </label>
-        <input type="text" id="age" name="age" />
-      </div>
-      <br />
-      <br />
-      <Button type="submit">Update account</Button>
-      </form>
+    <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+      <Card className={cn("w-[380px]")}>
+        <CardHeader>
+          <CardTitle>계정을 생성합니다</CardTitle>
+          <CardDescription>필수 정보를 입력헤볼게요.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={formData.handleSubmit(onSubmit)}>
+            <div className="mb-4">
+              <Label htmlFor="username">Username</Label>
+              <Input {...formData.register('username')} id="username" placeholder="Enter your username" />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="age">Age</Label>
+              <Input {...formData.register('age')} id="age" type="number" placeholder="Enter your age" />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="hobby">취미</Label>
+              <Input {...formData.register('hobby')} id="hobby" />
+            </div>
+            <Button type='submit' disabled={isLoading}>전송</Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
-
   )
 }
 
