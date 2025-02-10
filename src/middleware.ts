@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
   console.log("accessToken = " + accessToken);
   console.log("isPublicPath = " + isPublicPath);
-
+/*
   if (!isPublicPath && !accessToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
   if (isPublicPath && accessToken) {
     return NextResponse.redirect(new URL("/main", request.url));
   }
-
+*/
 
   return NextResponse.next();
 }

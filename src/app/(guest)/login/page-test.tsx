@@ -1,7 +1,7 @@
 "use client";
 
-import { getJobLogs } from "@/app/api/useGetJobLogs";
-import { setLogin } from "@/app/api/useSetLogin";
+import { getJobLogs } from "@/app/(admin)/actions/useGetJobLogs";
+import { setLogin } from "@/app/(admin)/actions/useSetLogin";
 import { getToken, setToken } from "@/app/utils/cookie";
 import { LoginData } from "@/types";
 import { useState } from "react";
