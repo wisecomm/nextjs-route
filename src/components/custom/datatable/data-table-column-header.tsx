@@ -38,9 +38,9 @@ export function DataTableColumnHeader<TData, TValue>({
         size="sm"
         className="-ml-3 h-8 data-[state=open]:bg-accent"
         onClick={handleSort}
-        disabled={!column.getCanSort()}
+      //  disabled={!column.getCanSort()}
       >
-        <span>{title}</span>
+        <span className="font-bold text-base">{title}</span>
         {column.getCanSort() && (
           <div className="ml-2">
             {column.getIsSorted() === "asc" && (

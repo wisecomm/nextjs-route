@@ -19,12 +19,14 @@ export const columns: ColumnDef<Payment>[] = [
     header: "",
     cell: ({ row }) => {
       return (
+        <div className="flex items-center justify-center">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
           aria-label="Select row"
           className="translate-y-[2px]"
         />
+        </div>
       );
     },
     enableSorting: false,
@@ -46,12 +48,12 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="제  목" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-center">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="w-[500px]">
             {row.getValue("title")}
           </span>
         </div>
@@ -79,7 +81,7 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-center">
-          <span className="w-[50px]">{row.getValue("amount")}</span>
+          <span className="w-[10px]">{row.getValue("amount")}</span>
         </div>
       );
     },
