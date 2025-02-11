@@ -22,6 +22,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui"
+
+import {
+Select,
+SelectContent,
+SelectItem,
+SelectTrigger,
+SelectValue,
+} from "@/components/ui/select"
 import { useState } from "react"
  
 interface DataTableProps<TData, TValue> {
@@ -39,6 +47,8 @@ export function DataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([])
     const [currentPageGroup, setCurrentPageGroup] = useState(0);
     const [pageInput, setPageInput] = useState('');
+    const [pageSize, setPageSize] = useState(10);
+    const [pageIndex, setPageIndex] = useState(0); // Add this line
 
     const table = useReactTable({
       data,
@@ -49,14 +59,25 @@ export function DataTable<TData, TValue>({
       getSortedRowModel: getSortedRowModel(),
       state: {
         sorting,
+        pagination: {
+          pageSize,
+          pageIndex, // Use the state variable
+        },
+      },
+      onPaginationChange: (updater) => {
+        if (typeof updater === 'function') {
+          const newState = updater(table.getState().pagination)
+          setPageSize(newState.pageSize)
+          setPageIndex(newState.pageIndex);
+        }
       },
      })
 
     const getPageNumbers = () => {
       const totalPages = table.getPageCount();
-      const startPage = currentPageGroup * 5 + 1;
-      const endPage = Math.min(startPage + 4, totalPages);
-      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+      const startPage = currentPageGroup * 5;
+      const endPage = Math.min(startPage + 4, totalPages - 1);
+      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i + 1);
     };
 
     const handleGoToPage = () => {
@@ -124,60 +145,96 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.previousPage();
-            if (table.getState().pagination.pageIndex % 5 === 0) {
-              setCurrentPageGroup(prev => prev - 1);
-            }
-          }}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Prev
-        </Button>
-        {getPageNumbers().map((pageNumber) => (
-          <Button
-            key={pageNumber}
-            variant={table.getState().pagination.pageIndex + 1 === pageNumber ? "default" : "outline"}
-            size="sm"
-            onClick={() => table.setPageIndex(pageNumber - 1)}
+      <div className="flex items-center justify-between py-4">
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-medium">Rows per page</p>
+          <Select
+            value={`${pageSize}`}
+            onValueChange={(value) => {
+              const newPageSize = Number(value);
+              const currentRow = pageSize * pageIndex;
+              const newPageIndex = Math.floor(currentRow / newPageSize);
+              
+              table.setPageSize(newPageSize);
+              table.setPageIndex(0); // Reset to first page
+              setCurrentPageGroup(0); // Reset page group to first group
+              setPageSize(newPageSize);
+            }}
           >
-            {pageNumber}
+            <SelectTrigger className="h-8 w-[70px]">
+              <SelectValue placeholder={pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {[10, 20, 30, 40, 50].map((size) => (
+                <SelectItem key={size} value={`${size}`}>
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <p className="text-sm font-medium">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const prevPageIndex = table.getState().pagination.pageIndex - 1;
+              table.previousPage();
+              if (prevPageIndex >= 0 && prevPageIndex % 5 === 4) {
+                setCurrentPageGroup(prev => Math.max(0, prev - 1));
+              }
+            }}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Prev
           </Button>
-        ))}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            table.nextPage();
-            if ((table.getState().pagination.pageIndex + 1) % 5 === 0) {
-              setCurrentPageGroup(prev => prev + 1);
-            }
-          }}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-        <input
-          type="text"
-          value={pageInput}
-          onChange={(e) => setPageInput(e.target.value)}
-          className="w-16 rounded-md border px-2 py-1 text-sm"
-          placeholder="Page"
-        />
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleGoToPage}
-        >
-          Go
-        </Button>
+          {getPageNumbers().map((pageNumber) => (
+            <Button
+              key={pageNumber}
+              variant={table.getState().pagination.pageIndex + 1 === pageNumber ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                table.setPageIndex(pageNumber - 1);
+              }}
+            >
+              {pageNumber}
+            </Button>
+          ))}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              table.nextPage();
+              const nextPageIndex = table.getState().pagination.pageIndex + 1;
+              if (nextPageIndex % 5 === 0) {
+                setCurrentPageGroup(prev => prev + 1);
+              }
+            }}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+          <input
+            type="text"
+            value={pageInput}
+            onChange={(e) => setPageInput(e.target.value)}
+            className="w-16 rounded-md border px-2 py-1 text-sm"
+            placeholder="Page"
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleGoToPage}
+          >
+            Go
+          </Button>
+        </div>
       </div>
       <Separator  className="my-4"/>
-
       </div>      
     )
   }
