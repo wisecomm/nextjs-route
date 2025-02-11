@@ -36,12 +36,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   DataTableToolbar?: React.ComponentType<{ table: TanstackTable<TData> }>;
+  onRowSelect?: (row: TData | undefined) => void;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
     DataTableToolbar,
+    onRowSelect,
   }: DataTableProps<TData, TValue>) {
 
     const [sorting, setSorting] = useState<SortingState>([])
@@ -49,6 +51,7 @@ export function DataTable<TData, TValue>({
     const [pageInput, setPageInput] = useState('');
     const [pageSize, setPageSize] = useState(10);
     const [pageIndex, setPageIndex] = useState(0); // Add this line
+    const [rowSelection, setRowSelection] = useState({});
 
     const table = useReactTable({
       data,
@@ -57,12 +60,24 @@ export function DataTable<TData, TValue>({
       getPaginationRowModel: getPaginationRowModel(),
       onSortingChange: setSorting,
       getSortedRowModel: getSortedRowModel(),
+      enableRowSelection: true,
+      enableMultiRowSelection: false,
+      onRowSelectionChange: (updater) => {
+        if (typeof updater === 'function') {
+          const newSelection = updater(rowSelection);
+          setRowSelection(newSelection);
+          const selectedId = Object.keys(newSelection)[0];
+          const selectedRow = data.find((_, index) => index.toString() === selectedId);
+          onRowSelect?.(selectedRow);
+        }
+      },
       state: {
         sorting,
         pagination: {
           pageSize,
           pageIndex, // Use the state variable
         },
+        rowSelection,
       },
       onPaginationChange: (updater) => {
         if (typeof updater === 'function') {
@@ -126,7 +141,13 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
+                  className={`
+                    cursor-pointer
+                    hover:bg-muted/50
+                    ${row.getIsSelected() ? "bg-muted" : ""}
+                  `}
+                  onClick={() => row.toggleSelected()}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
