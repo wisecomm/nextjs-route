@@ -147,7 +147,10 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-medium">Rows per page</p>
+        <p className="text-sm font-medium">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </p>
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
@@ -172,10 +175,7 @@ export function DataTable<TData, TValue>({
               ))}
             </SelectContent>
           </Select>
-          <p className="text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </p>
+          <p className="text-sm font-medium">개씩 보기</p>
         </div>
         <div className="flex items-center space-x-2">
           <Button
