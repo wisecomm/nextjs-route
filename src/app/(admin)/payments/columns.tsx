@@ -79,7 +79,7 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-center">
-          <span>{row.getValue("amount")}</span>
+          <span className="w-[50px]">{row.getValue("amount")}</span>
         </div>
       );
     },
