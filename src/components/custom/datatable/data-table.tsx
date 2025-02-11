@@ -38,6 +38,7 @@ export function DataTable<TData, TValue>({
 
     const [sorting, setSorting] = useState<SortingState>([])
     const [currentPageGroup, setCurrentPageGroup] = useState(0);
+    const [pageInput, setPageInput] = useState('');
 
     const table = useReactTable({
       data,
@@ -56,6 +57,24 @@ export function DataTable<TData, TValue>({
       const startPage = currentPageGroup * 5 + 1;
       const endPage = Math.min(startPage + 4, totalPages);
       return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    };
+
+    const handleGoToPage = () => {
+      const pageNumber = parseInt(pageInput);
+      if (isNaN(pageNumber)) return;
+      
+      const totalPages = table.getPageCount();
+      if (pageNumber <= 0) {  // Changed from pageNumber < 1 to pageNumber <= 0
+        table.setPageIndex(0);  // This will set to page 1 (index 0)
+        setCurrentPageGroup(0); // Reset to first page group
+      } else if (pageNumber > totalPages) {
+        table.setPageIndex(totalPages - 1);
+        setCurrentPageGroup(Math.floor((totalPages - 1) / 5));
+      } else {
+        table.setPageIndex(pageNumber - 1);
+        setCurrentPageGroup(Math.floor((pageNumber - 1) / 5));
+      }
+      setPageInput('');
     };
    
     return (
@@ -141,6 +160,20 @@ export function DataTable<TData, TValue>({
           disabled={!table.getCanNextPage()}
         >
           Next
+        </Button>
+        <input
+          type="text"
+          value={pageInput}
+          onChange={(e) => setPageInput(e.target.value)}
+          className="w-16 rounded-md border px-2 py-1 text-sm"
+          placeholder="Page"
+        />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleGoToPage}
+        >
+          Go
         </Button>
       </div>
       <Separator  className="my-4"/>
