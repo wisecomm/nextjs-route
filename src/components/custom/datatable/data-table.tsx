@@ -120,10 +120,16 @@ export function DataTable<TData, TValue>({
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow 
+                key={headerGroup.id}
+                className="border-b border-gray-200"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead 
+                      key={header.id}
+                      className="border-x border-gray-200 bg-gray-100"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -146,11 +152,15 @@ export function DataTable<TData, TValue>({
                     cursor-pointer
                     hover:bg-muted/50
                     ${row.getIsSelected() ? "bg-muted" : ""}
+                    border-b border-gray-200
                   `}
                   onClick={() => row.toggleSelected()}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell 
+                      key={cell.id}
+                      className="border-x border-gray-200"
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -158,7 +168,10 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell 
+                  colSpan={columns.length} 
+                  className="h-24 text-center border-x border-b border-gray-200"
+                >
                   No results.
                 </TableCell>
               </TableRow>
