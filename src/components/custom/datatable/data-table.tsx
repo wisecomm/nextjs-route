@@ -37,8 +37,7 @@ export function DataTable<TData, TValue>({
   }: DataTableProps<TData, TValue>) {
 
     const [sorting, setSorting] = useState<SortingState>([])
- 
-
+    const [currentPageGroup, setCurrentPageGroup] = useState(0);
 
     const table = useReactTable({
       data,
@@ -51,6 +50,13 @@ export function DataTable<TData, TValue>({
         sorting,
       },
      })
+
+    const getPageNumbers = () => {
+      const totalPages = table.getPageCount();
+      const startPage = currentPageGroup * 5 + 1;
+      const endPage = Math.min(startPage + 4, totalPages);
+      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    };
    
     return (
       <div className="space-y-4">
@@ -103,15 +109,35 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
+          onClick={() => {
+            table.previousPage();
+            if (table.getState().pagination.pageIndex % 5 === 0) {
+              setCurrentPageGroup(prev => prev - 1);
+            }
+          }}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Prev
         </Button>
+        {getPageNumbers().map((pageNumber) => (
+          <Button
+            key={pageNumber}
+            variant={table.getState().pagination.pageIndex + 1 === pageNumber ? "default" : "outline"}
+            size="sm"
+            onClick={() => table.setPageIndex(pageNumber - 1)}
+          >
+            {pageNumber}
+          </Button>
+        ))}
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
+          onClick={() => {
+            table.nextPage();
+            if ((table.getState().pagination.pageIndex + 1) % 5 === 0) {
+              setCurrentPageGroup(prev => prev + 1);
+            }
+          }}
           disabled={!table.getCanNextPage()}
         >
           Next
