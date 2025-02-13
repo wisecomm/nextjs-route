@@ -55,12 +55,19 @@ export function DalAlertDialog({
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
+      <AlertDialogContent style={{ 
+      maxWidth: '425px',
+      width: 'fit-content',
+      minWidth: '300px'
+    }}>
         <AlertDialogHeader>
           <AlertDialogTitle  className="text-center">
             {title}
           </AlertDialogTitle>
-          <AlertDialogDescription className="text-center">
+          <AlertDialogDescription className="text-center" style={{ 
+            whiteSpace: 'pre-wrap', wordBreak: 'keep-all',
+            fontSize: '1rem', lineHeight: '1.5'
+          }}>
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>

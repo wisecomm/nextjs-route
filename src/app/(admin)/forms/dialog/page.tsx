@@ -26,7 +26,8 @@ function DialogPage() {
         open={open}
         onOpenChange={setOpen}
         title='정말 삭제하시겠습니까?'
-        description='이 작업은 되돌릴 수 없습니다.'
+        description={'동해물과 백두산이 태그는 적용되어 저장된다'}
+        // description={'동해물과 백두산이 \n 마르고 닳도록'}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
