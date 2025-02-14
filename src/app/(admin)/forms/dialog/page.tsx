@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { DalAlertDialog } from "@/components/custom/ui/dal-alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DialogDemo } from "@/components/custom/ui-etc/DialogDemo";
+import { DialogFormDemo } from "@/components/custom/ui-etc/DialogFormDemo";
 
 function DialogPage() {
   const [openDalAlertDialog, setOpenDalAlertDialog] = useState(false);
   const [openDialogDemo, setOpenDialogDemo] = useState(false);
+  const [openDialogFormDemo, setOpenDialogFormDemo] = useState(false);
 
   const handleConfirm = () => {
     console.log("확인 버튼 클릭됨");
@@ -35,6 +37,13 @@ function DialogPage() {
       >
         DialogDemo 열기
       </Button>
+      <Button
+        variant="outline"
+        size="lg"
+        onClick={() => setOpenDialogFormDemo(true)}
+      >
+        DialogFormDemo 열기
+      </Button>
       <DalAlertDialog
         open={openDalAlertDialog}
         onOpenChange={setOpenDalAlertDialog}
@@ -47,6 +56,12 @@ function DialogPage() {
       <DialogDemo
         open={openDialogDemo}
         onOpenChange={setOpenDialogDemo}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <DialogFormDemo
+        open={openDialogFormDemo}
+        onOpenChange={setOpenDialogFormDemo}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
