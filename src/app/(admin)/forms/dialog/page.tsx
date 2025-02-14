@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import { DialogDemo } from "@/components/custom/ui-etc/DialogDemo";
 import { DialogFormDemo } from "@/components/custom/ui-etc/DialogFormDemo";
 import { DialogFormZodDemo } from "@/components/custom/ui-etc/DialogFormZodDemo";
+import { FormModalDemo } from "@/components/custom/ui-etc/FormModalDemo";
 
 function DialogPage() {
   const [openDalAlertDialog, setOpenDalAlertDialog] = useState(false);
   const [openDialogDemo, setOpenDialogDemo] = useState(false);
   const [openDialogFormDemo, setOpenDialogFormDemo] = useState(false);
   const [openDialogFormZodDemo, setOpenDialogFormZodDemo] = useState(false);
+  const [openFormModalDemo, setOpenFormModalDemo] = useState(false);
 
+  
   const handleConfirm = () => {
     console.log("확인 버튼 클릭됨");
     // 여기에 확인 시 실행할 로직 추가
@@ -24,7 +27,7 @@ function DialogPage() {
   };
 
   return (
-    <div className="flex items-center gap-5 p-2">
+    <div className="grid grid-cols-3 gap-4 p-4">
       <Button
         variant="outline"
         size="lg"
@@ -53,6 +56,13 @@ function DialogPage() {
       >
         DialogFormZodDemo 열기
       </Button>
+      <Button
+        variant="outline"
+        size="lg"
+        onClick={() => setOpenFormModalDemo(true)}
+      >
+        FormModalDemo 열기
+      </Button>
       <DalAlertDialog
         open={openDalAlertDialog}
         onOpenChange={setOpenDalAlertDialog}
@@ -77,6 +87,12 @@ function DialogPage() {
       <DialogFormZodDemo
         open={openDialogFormZodDemo}
         onOpenChange={setOpenDialogFormZodDemo}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <FormModalDemo
+        open={openFormModalDemo}
+        onOpenChange={setOpenFormModalDemo}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />

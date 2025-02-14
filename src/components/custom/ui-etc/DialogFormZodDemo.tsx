@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { showToastMessageUi } from "../utils/toastUtilsUi";
 
 interface DialogFormZodDemoProps {
   open: boolean;
@@ -26,6 +27,7 @@ export function DialogFormZodDemo({
   onConfirm,
   onCancel,
 }: DialogFormZodDemoProps) {
+
   const accountFormSchema = z.object({
     username: z.string().min(2, {
       message: "사용자 이름을 입력하세요.",
@@ -47,15 +49,41 @@ export function DialogFormZodDemo({
 
   const [isPnding, startTransition] = useTransition();
 
+  const handleSubmit = (submitData: AccountFormValues) => {
+    startTransition(async () => {
+      try {
+        console.log(submitData);
+
+        // 전송 전에 입력필드 검증
+        const result = accountFormSchema.safeParse(submitData);
+        if (!result.success) {
+          const firstError = result.error.errors[0];
+          showToastMessageUi("Validation Error", firstError.message);
+          return;
+        }
+
+        // 서버 전송 로직 추가
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        handleConfirm();
+      } catch (error) {
+        console.log("onSubmit error: " + error);
+      }
+      console.log("startTransition");
+    });
+  };
+
   const handleConfirm = () => {
+    formData.reset();
     onConfirm?.();
     onOpenChange(false);
   };
 
   const handleCancel = () => {
+    formData.reset();
     onCancel?.();
     onOpenChange(false);
   };
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -76,7 +104,8 @@ export function DialogFormZodDemo({
                 이름
               </Label>
               <Input
-                id="username"
+              {...formData.register("username")}
+              id="username"
                 placeholder="Enter your username"
                 className="col-span-3"
               />
@@ -89,7 +118,8 @@ export function DialogFormZodDemo({
                 나이
               </Label>
               <Input
-                id="age"
+              {...formData.register("age")}
+              id="age"
                 type="number"
                 min="0"
                 step="1"
@@ -104,7 +134,9 @@ export function DialogFormZodDemo({
               >
                 취미(지역)
               </Label>
-              <Input id="hobby" className="col-span-3" />
+              <Input 
+              {...formData.register("hobby")}
+              id="hobby" className="col-span-3" />
             </div>
           </div>
         </form>
@@ -112,7 +144,7 @@ export function DialogFormZodDemo({
           <Button variant="outline" onClick={handleCancel}>
             취소
           </Button>
-          <Button onClick={handleConfirm}>확인</Button>
+          <Button disabled={isPnding} onClick={formData.handleSubmit(handleSubmit)}>확인</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
