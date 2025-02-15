@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface DialogFormDemoProps {
+interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm?: () => void;
@@ -22,7 +22,7 @@ export function DialogFormDemo({
   onOpenChange,
   onConfirm,
   onCancel,
-}: DialogFormDemoProps) {
+}: Props) {
   const handleConfirm = () => {
     onConfirm?.();
     onOpenChange(false);

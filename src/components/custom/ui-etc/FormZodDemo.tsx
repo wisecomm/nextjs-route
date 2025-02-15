@@ -1,18 +1,11 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import React from 'react';
 import { useTransition } from "react";
+import { Button, Input, Label } from '@/components/ui';
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { showToastMessageUi } from "../utils/toastUtilsUi";
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 
 interface Props {
   open: boolean;
@@ -21,12 +14,9 @@ interface Props {
   onCancel?: () => void;
 }
 
-export function DialogFormZodDemo({
-  open,
-  onOpenChange,
-  onConfirm,
-  onCancel,
-}: Props) {
+export const FormZodDemo: React.FC<Props> = ({ open, onOpenChange, onConfirm, onCancel }) => {
+
+  if (!open) return null;
 
   const accountFormSchema = z.object({
     username: z.string().min(2, {
@@ -64,6 +54,7 @@ export function DialogFormZodDemo({
 
         // 서버 전송 로직 추가
         await new Promise((resolve) => setTimeout(resolve, 2000));
+
         handleConfirm();
       } catch (error) {
         console.log("onSubmit error: " + error);
@@ -84,16 +75,10 @@ export function DialogFormZodDemo({
     onOpenChange(false);
   };
 
-
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] [&>button]:hidden pt-2">
-        <DialogHeader>
-          <DialogTitle className="text-center text-xl font-semibold">
-            다이알로그 폼 대모
-          </DialogTitle>
-          <DialogDescription className="hidden"></DialogDescription>
-        </DialogHeader>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 pt-2 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-2 text-center">타이틀 이름</h2>
         <form>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-1">
@@ -104,9 +89,9 @@ export function DialogFormZodDemo({
                 이름
               </Label>
               <Input
-              {...formData.register("username")}
-              id="username"
-                placeholder="Enter your username"
+                {...formData.register("username")}
+                id="username"
+                placeholder="이름을 입력하세요"
                 className="col-span-3"
               />
             </div>
@@ -118,12 +103,12 @@ export function DialogFormZodDemo({
                 나이
               </Label>
               <Input
-              {...formData.register("age")}
-              id="age"
+                {...formData.register("age")}
+                id="age"
                 type="number"
                 min="0"
                 step="1"
-                placeholder="Enter your age"
+                placeholder="나이를 입력하세요"
                 className="col-span-3"
               />
             </div>
@@ -132,21 +117,26 @@ export function DialogFormZodDemo({
                 htmlFor="hobby"
                 className="text-center border-2 border-black-500 bg-yellow-400 rounded-md py-2"
               >
-                취미(지역)
+                취미
               </Label>
-              <Input 
-              {...formData.register("hobby")}
-              id="hobby" className="col-span-3" />
+              <Input
+                {...formData.register("hobby")}
+                id="hobby"
+                placeholder="취미를 입력하세요"
+                className="col-span-3"
+              />
             </div>
           </div>
+          <div className="flex justify-end space-x-2 mt-4">
+            <Button variant="outline" size="sm" onClick={handleCancel}  className={cn(buttonVariants({ variant: 'outline' }))}>
+              취소
+            </Button>
+            <Button disabled={isPending} variant="outline" size="sm" onClick={formData.handleSubmit(handleSubmit)} className={cn(buttonVariants({ variant: 'outline' }), 'bg-black text-white hover:bg-gray-800')}>
+              저장
+            </Button>
+          </div>
         </form>
-        <DialogFooter>
-          <Button variant="outline" onClick={handleCancel}>
-            취소
-          </Button>
-          <Button disabled={isPending} onClick={formData.handleSubmit(handleSubmit)}>확인</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
-}
+};

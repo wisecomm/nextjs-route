@@ -1,14 +1,5 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import React from 'react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Button, Input, Label } from '@/components/ui';
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,12 +12,13 @@ interface Props {
   onCancel?: () => void;
 }
 
-export function DialogFormZodDemo({
+export function DialogFormZodAltDemo({
   open,
   onOpenChange,
   onConfirm,
   onCancel,
 }: Props) {
+
 
   const accountFormSchema = z.object({
     username: z.string().min(2, {
@@ -64,6 +56,7 @@ export function DialogFormZodDemo({
 
         // 서버 전송 로직 추가
         await new Promise((resolve) => setTimeout(resolve, 2000));
+
         handleConfirm();
       } catch (error) {
         console.log("onSubmit error: " + error);
@@ -84,17 +77,14 @@ export function DialogFormZodDemo({
     onOpenChange(false);
   };
 
-
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] [&>button]:hidden pt-2">
-        <DialogHeader>
-          <DialogTitle className="text-center text-xl font-semibold">
-            다이알로그 폼 대모
-          </DialogTitle>
-          <DialogDescription className="hidden"></DialogDescription>
-        </DialogHeader>
-        <form>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className="sm:max-w-[425px] pt-2">
+        <AlertDialogHeader>
+        <AlertDialogTitle className="text-center text-xl font-bold">
+            타이틀 제목
+          </AlertDialogTitle>
+          <form>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-1">
               <Label
@@ -140,13 +130,12 @@ export function DialogFormZodDemo({
             </div>
           </div>
         </form>
-        <DialogFooter>
-          <Button variant="outline" onClick={handleCancel}>
-            취소
-          </Button>
-          <Button disabled={isPending} onClick={formData.handleSubmit(handleSubmit)}>확인</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={handleCancel}>취소</AlertDialogCancel>
+          <AlertDialogAction disabled={isPending} onClick={formData.handleSubmit(handleSubmit)}>저장</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
-}
+};

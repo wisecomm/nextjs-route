@@ -29,7 +29,7 @@ function Login() {
     defaultValues,
   });
 
-  const [isPnding, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (submitData: AccountFormValues) => {
     startTransition(async () => {
@@ -116,10 +116,10 @@ function Login() {
           </div>
           <Button
             className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
-            disabled={isPnding}
+            disabled={isPending}
             onClick={formData.handleSubmit(handleSubmit)}
           >
-            {isPnding ? "로그인 중..." : "로그인"}
+            {isPending ? "로그인 중..." : "로그인"}
           </Button>
         </form>
       </div>

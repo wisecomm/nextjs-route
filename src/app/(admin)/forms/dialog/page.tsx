@@ -6,15 +6,17 @@ import { Button } from "@/components/ui/button";
 import { DialogDemo } from "@/components/custom/ui-etc/DialogDemo";
 import { DialogFormDemo } from "@/components/custom/ui-etc/DialogFormDemo";
 import { DialogFormZodDemo } from "@/components/custom/ui-etc/DialogFormZodDemo";
-import { FormModalDemo } from "@/components/custom/ui-etc/FormModalDemo";
+import { DialogFormZodAltDemo } from "@/components/custom/ui-etc/DialogFormZodAltDemo";
+import { FormZodDemo } from "@/components/custom/ui-etc/FormZodDemo";
 
 function DialogPage() {
   const [openDalAlertDialog, setOpenDalAlertDialog] = useState(false);
   const [openDialogDemo, setOpenDialogDemo] = useState(false);
   const [openDialogFormDemo, setOpenDialogFormDemo] = useState(false);
   const [openDialogFormZodDemo, setOpenDialogFormZodDemo] = useState(false);
-  const [openFormModalDemo, setOpenFormModalDemo] = useState(false);
-
+  const [openDialogFormZodAltDemo, setOpenDialogFormZodAltDemo] = useState(false);
+  const [openFormZodDemo, setOpenFormZodDemo] = useState(false);
+  
   
   const handleConfirm = () => {
     console.log("확인 버튼 클릭됨");
@@ -59,9 +61,16 @@ function DialogPage() {
       <Button
         variant="outline"
         size="lg"
-        onClick={() => setOpenFormModalDemo(true)}
+        onClick={() => setOpenDialogFormZodAltDemo(true)}
       >
-        FormModalDemo 열기
+        DialogFormZodAltDemo 열기
+      </Button>
+      <Button
+        variant="outline"
+        size="lg"
+        onClick={() => setOpenFormZodDemo(true)}
+      >
+        FormZodDemo 열기
       </Button>
       <DalAlertDialog
         open={openDalAlertDialog}
@@ -90,9 +99,15 @@ function DialogPage() {
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
-      <FormModalDemo
-        open={openFormModalDemo}
-        onOpenChange={setOpenFormModalDemo}
+      <DialogFormZodAltDemo
+        open={openDialogFormZodAltDemo}
+        onOpenChange={setOpenDialogFormZodAltDemo}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <FormZodDemo
+        open={openFormZodDemo}
+        onOpenChange={setOpenFormZodDemo}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
       />
