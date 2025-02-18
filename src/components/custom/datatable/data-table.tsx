@@ -13,15 +13,19 @@ import {
 import { Table as TanstackTable } from '@tanstack/react-table';
 
 import {
-    Button,
-    Separator,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui"
+  Button,
+} from "@/components/ui/button"
+import {
+  Separator,
+} from "@/components/ui/separator"
+import {
+Table,
+TableBody,
+TableCell,
+TableHead,
+TableHeader,
+TableRow,
+} from "@/components/ui/table"
 
 import {
 Select,

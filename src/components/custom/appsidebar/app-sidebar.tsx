@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main";
 import NavTop from "./nav-top";
-import { Separator } from "@/components/ui";
+import { Separator } from "@/components/ui/separator";
 
 // Menu items.
 const items = [

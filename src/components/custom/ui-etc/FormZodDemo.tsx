@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTransition } from "react";
-import { Button, Input, Label } from '@/components/ui';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { showToastMessageUi } from "../utils/toastUtilsUi";

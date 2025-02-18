@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ThemeToggle } from "../ThemeToggle";
-import { Label } from "@/components/ui";
+import { Label } from "@/components/ui/label";
 
 const TopHeaderBar = () => {
   return (

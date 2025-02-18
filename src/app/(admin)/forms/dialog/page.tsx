@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { DalAlertDialog } from "@/components/custom/ui/dal-alert-dialog";
+import { DalAlertDialog } from "@/components/custom/ui-etc/dal-alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DialogDemo } from "@/components/custom/ui-etc/DialogDemo";
 import { DialogFormDemo } from "@/components/custom/ui-etc/DialogFormDemo";

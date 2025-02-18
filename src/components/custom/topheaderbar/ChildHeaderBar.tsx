@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Label } from "@/components/ui";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Label } from "@/components/ui/label";
 
 const ChildHeaderBar = () => {
   return (

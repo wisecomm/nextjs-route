@@ -5,7 +5,7 @@ import { Payment, columns } from "./columns";
 import { DataTable } from "@/components/custom/datatable/data-table";
 import { DataTableToolbar } from "./data-table-toolbar";
 import ChildHeaderBar from "@/components/custom/topheaderbar/ChildHeaderBar";
-import { Button } from "@/components/ui";
+import { Button } from "@/components/ui/button";
 import { Modal } from "./modal";
 import { fetchData } from "./testdata";
 

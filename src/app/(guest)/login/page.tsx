@@ -6,7 +6,9 @@ import { setToken } from "@/app/utils/cookie";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
-import { Button, Input, Label } from "@/components/ui";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { setLogin } from "@/app/(admin)/actions/useSetLogin";
 
 //import { setLogin } from "@/app/api/useSetLogin";

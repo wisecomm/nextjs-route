@@ -2,14 +2,18 @@
 
 import {
   Button,
+} from "@/components/ui/button";
+import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
+} from "@/components/ui/card";
+import {
   Input,
-} from "@/components/ui";
+} from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui";
+import { Input } from "@/components/ui/input";
 import React from "react";
 
 function Main() {
