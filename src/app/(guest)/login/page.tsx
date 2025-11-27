@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { setLogin } from "@/app/(admin)/actions/useSetLogin";
 
+import { useRouter } from 'next/navigation'
+
 //import { setLogin } from "@/app/api/useSetLogin";
 
 function Login() {
@@ -32,6 +34,7 @@ function Login() {
   });
 
   const [isPending, startTransition] = useTransition();
+  const router = useRouter()
 
   const handleSubmit = (submitData: AccountFormValues) => {
     startTransition(async () => {
@@ -67,6 +70,7 @@ function Login() {
 
         setToken("test-token-1234567");
         await new Promise((resolve) => setTimeout(resolve, 2000));
+        router.push('/main', { scroll: false });
         //      window.location.replace("/main");
       } catch (error) {
         console.log("onSubmit error: " + error);
