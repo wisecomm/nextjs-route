@@ -80,55 +80,53 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center">Login</h2>
-        <Image
-          className="dark:invert"
-          src="/image/myimage/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          style={{ width: 180, height: 38 }}
-          priority
-        />
-        <form className="space-y-4">
-          <div>
-            <Label
-              htmlFor="userid"
-              className="block text-sm font-medium text-gray-700"
-            >
-              사용자 아이디
-            </Label>
-            <Input
-              {...formData.register("userid")}
-              id="userid"
-              placeholder="Enter your userid"
-            />
-          </div>
-          <div>
-            <Label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              패스워드
-            </Label>
-            <Input
-              {...formData.register("password")}
-              id="password"
-              placeholder="Enter your password"
-              type="password"
-            />
-          </div>
-          <Button
-            className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
-            disabled={isPending}
-            onClick={formData.handleSubmit(handleSubmit)}
+    <div className="p-8 space-y-6 bg-white rounded shadow-md">
+      <h2 className="text-2xl font-bold text-center">Login</h2>
+      <Image
+        className="dark:invert"
+        src="/image/myimage/next.svg"
+        alt="Next.js logo"
+        width={180}
+        height={38}
+        style={{ width: 180, height: 38 }}
+        priority
+      />
+      <form className="space-y-4">
+        <div>
+          <Label
+            htmlFor="userid"
+            className="block text-sm font-medium text-gray-700"
           >
-            {isPending ? "로그인 중..." : "로그인"}
-          </Button>
-        </form>
-      </div>
+            사용자 아이디
+          </Label>
+          <Input
+            {...formData.register("userid")}
+            id="userid"
+            placeholder="Enter your userid"
+          />
+        </div>
+        <div>
+          <Label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            패스워드
+          </Label>
+          <Input
+            {...formData.register("password")}
+            id="password"
+            placeholder="Enter your password"
+            type="password"
+          />
+        </div>
+        <Button
+          className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
+          disabled={isPending}
+          onClick={formData.handleSubmit(handleSubmit)}
+        >
+          {isPending ? "로그인 중..." : "로그인"}
+        </Button>
+      </form>
     </div>
   );
 }
