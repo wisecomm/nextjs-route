@@ -1,4 +1,37 @@
 
+# 복사 사용모듈
+1. axios 공통화 모듈 
+  : 서버사이드 쿠키 사용
+ - 처리 사항
+  : rest 리턴값 공통 처리
+  : 리프래시 토큰 처리 ( 서버에 맞추어 수정 필요 )
+ - 복사 파일
+  : src/app/api 
+
+2. 로그인 액션
+ : 로그인, 로그아웃 사용
+- 복사 파일
+  : src/app/actions/auth-actions.ts 
+
+3. 로드인/로그아웃 페이지 제어
+ : middleware.ts 사용
+- 복사 파일
+  : src/middleware.ts 
+
+
+- JSON 서버 테스트 사용
+npm install -g json-server
+json-server --watch db.json --port 4000
+
+
+
+- npm install 에러시 npm install -legacy-peer-deps 
+- 프로젝트 생성 : npx create-next-app@latest src 디렉토리 선택
+
+- middleware.ts 추가 : src 디렉토리 아래 존재
+
+
+
 # 처리 사항
 - npm install 에러시 npm install -legacy-peer-deps 
 - 프로젝트 생성 : npx create-next-app@latest src 디렉토리 선택

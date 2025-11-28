@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { API_URL } from "@/app/api/[...path]/route";
 
 export async function createSession(accessToken: string, refreshToken: string) {
@@ -48,10 +49,10 @@ export async function login(formData: FormData) {
             return { success: false, message: '로그인 실패' };
         }
 
-        const data = await response.json();
+        const responseData = await response.json();
 
-        // API 응답 구조에 맞게 수정 필요 (예: data.accessToken, data.refreshToken)
-        const { accessToken, refreshToken } = data;
+        // API 응답 구조: { code: "200", data: { accessToken, refreshToken, ... }, message: "" }
+        const { accessToken, refreshToken } = responseData.data || {};
 
         if (!accessToken || !refreshToken) {
             return { success: false, message: '토큰을 받아오지 못했습니다.' };
@@ -64,4 +65,9 @@ export async function login(formData: FormData) {
         console.error('Login error:', error);
         return { success: false, message: '서버 에러가 발생했습니다.' };
     }
+}
+
+export async function logout() {
+    await deleteSession();
+    redirect('/login');
 }

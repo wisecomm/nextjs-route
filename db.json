@@ -1,0 +1,27 @@
+{
+    "login": {
+        "code": "200",
+        "data": {
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…",
+            "user": {
+                "userId": "admin",
+                "userName": "관리자",
+                "userRoles": "[\"1\", \"2\"]"
+            }
+        },
+        "message": ""
+    },
+    "test": [
+        {
+            "id": 1,
+            "title": "json-server 편해요",
+            "body": "굿"
+        },
+        {
+            "id": 2,
+            "title": "백엔드 만들기 귀찮을떈?",
+            "body": "json-server를 쓰면 된다"
+        }
+    ]
+}
