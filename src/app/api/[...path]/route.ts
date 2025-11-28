@@ -15,6 +15,7 @@ async function proxyRequest(request: NextRequest, path: string) {
 
     // 1. 요청 URL 재구성
     const targetUrl = `${API_URL}/${path}${request.nextUrl.search}`;
+    console.log(`[Proxy] Forwarding to: ${targetUrl}`);
 
     // 2. 헤더 설정
     const headers = new Headers(request.headers);

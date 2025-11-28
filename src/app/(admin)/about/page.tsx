@@ -4,6 +4,12 @@ import React, { useState } from "react";
 import { api } from "@/app/api/axiosClient";
 import { Button } from "@/components/ui/button";
 
+interface LoginResponseData {
+  accessToken: string;
+  refreshToken: string;
+}
+
+
 function Page() {
   const [data, setData] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
@@ -14,9 +20,15 @@ function Page() {
       // 예시: 사용자 정보 조회 API 호출
       // 실제 백엔드 API 경로에 맞춰 수정해주세요.
       // /api/users -> Next.js Proxy -> External API /users
-      const response = await api.get("/users");
-      console.log("API Response:", response);
-      setData(response);
+      const apiResponse = await api.get<LoginResponseData>("/auth/users");
+      if (apiResponse.code === '200' && apiResponse.data) {
+        const { accessToken, refreshToken } = apiResponse.data;
+        console.log("accessToken", accessToken);
+        console.log("refreshToken", refreshToken);
+      }
+
+      console.log("API Response:", apiResponse);
+      setData(apiResponse);
     } catch (error) {
       console.error("API Error:", error);
       setData({ error: "API 요청 실패 (콘솔 확인)" });

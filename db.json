@@ -2,8 +2,21 @@
     "login": {
         "code": "200",
         "data": {
-            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…",
-            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…",
+            "accessToken": "mock_access_token_example_12345",
+            "refreshToken": "mock_refresh_token_example_67890",
+            "user": {
+                "userId": "admin",
+                "userName": "관리자",
+                "userRoles": "[\"1\", \"2\"]"
+            }
+        },
+        "message": ""
+    },
+    "users": {
+        "code": "200",
+        "data": {
+            "accessToken": "mock_access_token_example_12345",
+            "refreshToken": "mock_refresh_token_example_67890",
             "user": {
                 "userId": "admin",
                 "userName": "관리자",

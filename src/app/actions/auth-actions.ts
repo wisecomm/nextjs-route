@@ -34,7 +34,6 @@ export async function deleteSession() {
 }
 
 
-
 interface LoginResponseData {
     accessToken: string;
     refreshToken: string;
@@ -45,8 +44,7 @@ export async function login(formData: FormData) {
     const password = formData.get('password');
 
     try {
-        const response = await fetch(`${API_URL}/login`, {
-            //        const response = await fetch(`${API_URL}/auth/login`, {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { ApiResponse } from '@/lib/api-utils';
 
 // 환경 변수 설정 (클라이언트에서 /api로 요청하면 Next.js Proxy가 처리)
 const baseURL = '/api';
@@ -64,27 +65,27 @@ axiosClient.interceptors.response.use(
 // 4. API 요청 래퍼 객체
 export const api = {
     // GET 요청
-    get: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+    get: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
         return axiosClient.get(url, config);
     },
 
     // POST 요청
-    post: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+    post: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
         return axiosClient.post(url, data, config);
     },
 
     // PUT 요청
-    put: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+    put: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
         return axiosClient.put(url, data, config);
     },
 
     // PATCH 요청
-    patch: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+    patch: <T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
         return axiosClient.patch(url, data, config);
     },
 
     // DELETE 요청
-    delete: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+    delete: <T = unknown>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
         return axiosClient.delete(url, config);
     },
 };
