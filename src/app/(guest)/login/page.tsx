@@ -62,7 +62,7 @@ function Login() {
 
         const loginResult = await login(formData);
 
-        if (!loginResult.success) {
+        if (loginResult.code !== '200') {
           toast({
             title: "Login Failed",
             description: loginResult.message,
@@ -70,6 +70,17 @@ function Login() {
           });
           return;
         }
+
+        toast({
+          title: "Login Success",
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">
+                {JSON.stringify(loginResult.data, null, 2)}
+              </code>
+            </pre>
+          ),
+        });
 
         router.push('/main', { scroll: false });
       } catch (error: unknown) {

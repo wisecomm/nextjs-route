@@ -19,9 +19,12 @@
   : src/middleware.ts 
 
 
-- JSON 서버 테스트 사용
-npm install -g json-server
-json-server --watch db.json --port 4000
+- JSON 서버 테스트 사용 (커스텀 서버)
+# json-server 설치 (최초 1회)
+npm install
+
+# 서버 실행 (POST /login 커스텀 처리 포함)
+node mock-server.js
 
 
 

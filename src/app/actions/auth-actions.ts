@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { API_URL } from "@/app/api/[...path]/route";
+import { handleApiResponse, ApiError } from "@/lib/api-utils";
 
 export async function createSession(accessToken: string, refreshToken: string) {
     const cookieStore = await cookies();
@@ -32,12 +33,20 @@ export async function deleteSession() {
     cookieStore.delete("refreshToken");
 }
 
+
+
+interface LoginResponseData {
+    accessToken: string;
+    refreshToken: string;
+}
+
 export async function login(formData: FormData) {
     const userid = formData.get('userid');
     const password = formData.get('password');
 
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
+        const response = await fetch(`${API_URL}/login`, {
+            //        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,25 +54,25 @@ export async function login(formData: FormData) {
             body: JSON.stringify({ userid, password }),
         });
 
-        if (!response.ok) {
-            return { success: false, message: '로그인 실패' };
+        const apiResponse = await handleApiResponse<LoginResponseData>(response);
+
+        if (apiResponse.code === '200' && apiResponse.data) {
+            const { accessToken, refreshToken } = apiResponse.data;
+            if (accessToken && refreshToken) {
+                await createSession(accessToken, refreshToken);
+            }
         }
 
-        const responseData = await response.json();
-
-        // API 응답 구조: { code: "200", data: { accessToken, refreshToken, ... }, message: "" }
-        const { accessToken, refreshToken } = responseData.data || {};
-
-        if (!accessToken || !refreshToken) {
-            return { success: false, message: '토큰을 받아오지 못했습니다.' };
-        }
-
-        await createSession(accessToken, refreshToken);
-
-        return { success: true };
+        return apiResponse;
     } catch (error) {
         console.error('Login error:', error);
-        return { success: false, message: '서버 에러가 발생했습니다.' };
+
+        if (error instanceof ApiError) {
+            return { code: error.code, message: error.message, data: null };
+        }
+
+        const message = error instanceof Error ? error.message : '서버 에러가 발생했습니다.';
+        return { code: '500', message, data: null };
     }
 }
 
