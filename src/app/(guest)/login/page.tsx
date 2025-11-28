@@ -1,19 +1,16 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import Image from "next/image";
-import { setToken } from "@/app/utils/cookie";
+import { login } from "@/app/actions/auth-actions";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { setLogin } from "@/app/(admin)/actions/useSetLogin";
 
 import { useRouter } from 'next/navigation'
-
-//import { setLogin } from "@/app/api/useSetLogin";
 
 function Login() {
   const accountFormSchema = z.object({
@@ -42,9 +39,9 @@ function Login() {
         console.log(submitData);
 
         // 전송 전에 입력필드 검증
-        const result = accountFormSchema.safeParse(submitData);
-        if (!result.success) {
-          const firstError = result.error.errors[0];
+        const validationResult = accountFormSchema.safeParse(submitData);
+        if (!validationResult.success) {
+          const firstError = validationResult.error.errors[0];
           toast({
             title: "Validation Error",
             description: (
@@ -58,21 +55,24 @@ function Login() {
           return;
         }
 
-        /*      
-        const { data, status, error } = await setLogin();
-  
-        console.log("handleLogin data=" + data);
-        console.log("handleLogin status=" + status);
-        console.log("handleLogin error=" + error);
-  
-        setToken(data.key);
-  */
+        // Server Action 호출
+        const formData = new FormData();
+        formData.append('userid', submitData.userid);
+        formData.append('password', submitData.password);
 
-        setToken("test-token-1234567");
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const loginResult = await login(formData);
+
+        if (!loginResult.success) {
+          toast({
+            title: "Login Failed",
+            description: loginResult.message,
+            variant: "destructive",
+          });
+          return;
+        }
+
         router.push('/main', { scroll: false });
-        //      window.location.replace("/main");
-      } catch (error) {
+      } catch (error: unknown) {
         console.log("onSubmit error: " + error);
       }
       console.log("startTransition");

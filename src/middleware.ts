@@ -13,15 +13,13 @@ export function middleware(request: NextRequest) {
 
   console.log("accessToken = " + accessToken);
   console.log("isPublicPath = " + isPublicPath);
-  /*
-    if (!isPublicPath && !accessToken) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  
-    if (isPublicPath && accessToken) {
-      return NextResponse.redirect(new URL("/main", request.url));
-    }
-  */
+  if (!isPublicPath && !accessToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (isPublicPath && accessToken) {
+    return NextResponse.redirect(new URL("/main", request.url));
+  }
 
   /*
     if (pathname === "/main") {
