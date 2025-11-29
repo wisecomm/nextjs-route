@@ -1,3 +1,4 @@
+// node mock-server.js : 실행 명령어
 // mock-server.js
 const jsonServer = require('json-server');
 const server = jsonServer.create();
