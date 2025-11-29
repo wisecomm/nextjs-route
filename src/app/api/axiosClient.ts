@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { ApiResponse } from '@/lib/api-utils';
+import { ApiResponse } from '@/types';
 
 // 환경 변수 설정 (클라이언트에서 /api로 요청하면 Next.js Proxy가 처리)
 const baseURL = '/api';

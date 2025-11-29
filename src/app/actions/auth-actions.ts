@@ -3,7 +3,29 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { API_URL } from "@/app/api/[...path]/route";
-import { handleApiResponse, ApiError } from "@/lib/api-utils";
+
+import { ApiResponse } from "@/types";
+
+export class ApiError extends Error {
+    code: string;
+    data?: unknown;
+
+    constructor(message: string, code: string, data?: unknown) {
+        super(message);
+        this.name = 'ApiError';
+        this.code = code;
+        this.data = data;
+    }
+}
+
+export async function handleApiResponse<T>(response: Response): Promise<ApiResponse<T>> {
+    if (!response.ok) {
+        throw new ApiError(`HTTP error! status: ${response.status}`, response.status.toString());
+    }
+
+    const responseData: ApiResponse<T> = await response.json();
+    return responseData;
+}
 
 export async function createSession(accessToken: string, refreshToken: string) {
     const cookieStore = await cookies();
