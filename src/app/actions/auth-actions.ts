@@ -33,6 +33,13 @@ export async function deleteSession() {
     cookieStore.delete("refreshToken");
 }
 
+export async function getTokens() {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get('accessToken')?.value;
+    const refreshToken = cookieStore.get('refreshToken')?.value;
+    return { accessToken, refreshToken };
+}
+
 
 interface LoginResponseData {
     accessToken: string;

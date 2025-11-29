@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+
+import { deleteSession, getTokens, createSession } from '@/app/actions/auth-actions';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
 
-async function getTokens() {
-    const cookieStore = await cookies();
-    const accessToken = cookieStore.get('accessToken')?.value;
-    const refreshToken = cookieStore.get('refreshToken')?.value;
-    return { accessToken, refreshToken };
-}
+
 
 async function proxyRequest(request: NextRequest, path: string) {
     const { accessToken } = await getTokens();
@@ -51,7 +47,7 @@ async function proxyRequest(request: NextRequest, path: string) {
     } catch (error) {
         console.error('Proxy Error:', error);
         return NextResponse.json(
-            { message: 'Internal Server Error' },
+            { code: '500', message: 'Internal Server Error', data: null },
             { status: 500 }
         );
     }
@@ -61,7 +57,7 @@ async function handleTokenRefresh(originalRequest: NextRequest, path: string) {
     const { refreshToken } = await getTokens();
 
     if (!refreshToken) {
-        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+        return NextResponse.json({ code: '401', message: 'Unauthorized', data: null }, { status: 401 });
     }
 
     try {
@@ -81,24 +77,7 @@ async function handleTokenRefresh(originalRequest: NextRequest, path: string) {
         const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await refreshResponse.json();
 
         // 2. 쿠키 갱신
-        const cookieStore = await cookies();
-        cookieStore.set('accessToken', newAccessToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            path: '/',
-            maxAge: 60 * 60,
-            sameSite: 'lax',
-        });
-
-        if (newRefreshToken) {
-            cookieStore.set('refreshToken', newRefreshToken, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                path: '/',
-                maxAge: 60 * 60 * 24 * 7,
-                sameSite: 'lax',
-            });
-        }
+        await createSession(newAccessToken, newRefreshToken || refreshToken);
 
         // 3. 원래 요청 재시도
         const targetUrl = `${API_URL}/${path}${originalRequest.nextUrl.search}`;
@@ -126,10 +105,8 @@ async function handleTokenRefresh(originalRequest: NextRequest, path: string) {
     } catch (error) {
         console.error('Token Refresh Error:', error);
         // 리프레시 실패 시 쿠키 삭제 및 401 반환
-        const cookieStore = await cookies();
-        cookieStore.delete('accessToken');
-        cookieStore.delete('refreshToken');
-        return NextResponse.json({ message: 'Session expired' }, { status: 401 });
+        await deleteSession();
+        return NextResponse.json({ code: '401', message: 'Session expired', data: null }, { status: 401 });
     }
 }
 
