@@ -31,6 +31,7 @@
         "data": [
             {
                 "id": "1",
+                "sortId": "1",
                 "name": "Dashboard",
                 "parentId": null,
                 "path": "/dashboard",
@@ -42,7 +43,8 @@
             },
             {
                 "id": "2",
-                "name": "System Management",
+                "sortId": "2",
+                "name": "통합 테스트",
                 "parentId": null,
                 "path": "/system",
                 "roles": [
@@ -52,9 +54,10 @@
             },
             {
                 "id": "3",
-                "name": "User Management",
+                "sortId": "1",
+                "name": "About Page",
                 "parentId": "2",
-                "path": "/system/users",
+                "path": "/about",
                 "roles": [
                     "admin"
                 ],

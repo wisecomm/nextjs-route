@@ -38,10 +38,19 @@ async function proxyRequest(request: NextRequest, path: string) {
             return await handleTokenRefresh(request, path);
         }
 
+        // 응답 헤더 필터링 (Content-Length, Content-Encoding 등 제외)
+        const responseHeaders = new Headers();
+        response.headers.forEach((value, key) => {
+            const lowerKey = key.toLowerCase();
+            if (!['content-length', 'content-encoding', 'transfer-encoding', 'connection'].includes(lowerKey)) {
+                responseHeaders.set(key, value);
+            }
+        });
+
         return new NextResponse(response.body, {
             status: response.status,
             statusText: response.statusText,
-            headers: response.headers,
+            headers: responseHeaders,
         });
 
     } catch (error) {
@@ -96,10 +105,18 @@ async function handleTokenRefresh(originalRequest: NextRequest, path: string) {
             cache: 'no-store',
         });
 
+        const retryResponseHeaders = new Headers();
+        retryResponse.headers.forEach((value, key) => {
+            const lowerKey = key.toLowerCase();
+            if (!['content-length', 'content-encoding', 'transfer-encoding', 'connection'].includes(lowerKey)) {
+                retryResponseHeaders.set(key, value);
+            }
+        });
+
         return new NextResponse(retryResponse.body, {
             status: retryResponse.status,
             statusText: retryResponse.statusText,
-            headers: retryResponse.headers,
+            headers: retryResponseHeaders,
         });
 
     } catch (error) {

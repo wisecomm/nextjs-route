@@ -6,6 +6,7 @@ export interface ButtonConfig {
 
 export interface Menu {
     id: string;
+    sortId?: string;
     name: string;
     parentId: string | null;
     path: string;
