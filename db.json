@@ -25,16 +25,63 @@
         },
         "message": ""
     },
-    "test": [
-        {
-            "id": 1,
-            "title": "json-server 편해요",
-            "body": "굿"
-        },
-        {
-            "id": 2,
-            "title": "백엔드 만들기 귀찮을떈?",
-            "body": "json-server를 쓰면 된다"
-        }
-    ]
+    "menus": {
+        "code": "200",
+        "message": "",
+        "data": [
+            {
+                "id": "1",
+                "name": "Dashboard",
+                "parentId": null,
+                "path": "/dashboard",
+                "roles": [
+                    "admin",
+                    "user"
+                ],
+                "buttons": []
+            },
+            {
+                "id": "2",
+                "name": "System Management",
+                "parentId": null,
+                "path": "/system",
+                "roles": [
+                    "admin"
+                ],
+                "buttons": []
+            },
+            {
+                "id": "3",
+                "name": "User Management",
+                "parentId": "2",
+                "path": "/system/users",
+                "roles": [
+                    "admin"
+                ],
+                "buttons": [
+                    {
+                        "id": "btn_create",
+                        "name": "Create User",
+                        "roles": [
+                            "admin"
+                        ]
+                    },
+                    {
+                        "id": "btn_edit",
+                        "name": "Edit User",
+                        "roles": [
+                            "admin"
+                        ]
+                    },
+                    {
+                        "id": "btn_delete",
+                        "name": "Delete User",
+                        "roles": [
+                            "super_admin"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
