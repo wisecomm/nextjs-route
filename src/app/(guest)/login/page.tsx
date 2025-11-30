@@ -5,60 +5,54 @@ import Image from "next/image";
 import { login } from "@/app/actions/auth-actions";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useRouter } from 'next/navigation';
 
-import { useRouter } from 'next/navigation'
+const accountFormSchema = z.object({
+  userid: z.string().min(1, {
+    message: "사용자 아이디을 입력하세요.",
+  }),
+  password: z.string().min(4, {
+    message: "패스워드는 4자리 이상입니다.",
+  }),
+});
+
+type AccountFormValues = z.infer<typeof accountFormSchema>;
+
+const defaultValues: Partial<AccountFormValues> = {
+  userid: "홍길동",
+  password: "",
+};
 
 function Login() {
-  const accountFormSchema = z.object({
-    userid: z.string().min(1, {
-      message: "사용자 아이디을 입력하세요.",
-    }),
-    password: z.string().min(4, {
-      message: "패스워드는 4자리 이상입니다.",
-    }),
-  });
-  type AccountFormValues = z.infer<typeof accountFormSchema>;
-  const defaultValues: Partial<AccountFormValues> = {
-    userid: "홍길동",
-    password: "",
-  };
-  const formData = useForm<AccountFormValues>({
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const form = useForm<AccountFormValues>({
+    resolver: zodResolver(accountFormSchema),
     defaultValues,
   });
 
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter()
-
-  const handleSubmit = (submitData: AccountFormValues) => {
+  const onSubmit = (data: AccountFormValues) => {
     startTransition(async () => {
       try {
-        console.log(submitData);
-
-        // 전송 전에 입력필드 검증
-        const validationResult = accountFormSchema.safeParse(submitData);
-        if (!validationResult.success) {
-          const firstError = validationResult.error.errors[0];
-          toast({
-            title: "Validation Error",
-            description: (
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">
-                  {JSON.stringify(firstError.message, null, 2)}
-                </code>
-              </pre>
-            ),
-          });
-          return;
-        }
+        console.log(data);
 
         // Server Action 호출
         const formData = new FormData();
-        formData.append('userid', submitData.userid);
-        formData.append('password', submitData.password);
+        formData.append('userid', data.userid);
+        formData.append('password', data.password);
 
         const loginResult = await login(formData);
 
@@ -85,59 +79,73 @@ function Login() {
         router.push('/main', { scroll: false });
       } catch (error: unknown) {
         console.log("onSubmit error: " + error);
+        toast({
+          title: "Error",
+          description: "로그인 처리 중 오류가 발생했습니다.",
+          variant: "destructive",
+        });
       }
-      console.log("startTransition");
     });
   };
 
   return (
-    <div className="p-8 space-y-6 bg-white rounded shadow-md">
+    <div className="p-8 space-y-6 bg-white rounded shadow-md w-[400px]">
       <h2 className="text-2xl font-bold text-center">Login</h2>
-      <Image
-        className="dark:invert"
-        src="/image/myimage/next.svg"
-        alt="Next.js logo"
-        width={180}
-        height={38}
-        style={{ width: 180, height: 38 }}
-        priority
-      />
-      <form className="space-y-4">
-        <div>
-          <Label
-            htmlFor="userid"
-            className="block text-sm font-medium text-gray-700"
-          >
-            사용자 아이디
-          </Label>
-          <Input
-            {...formData.register("userid")}
-            id="userid"
-            placeholder="Enter your userid"
+      <div className="flex justify-center">
+        <Image
+          className="dark:invert"
+          src="/image/myimage/next.svg"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          style={{ width: 180, height: 38 }}
+          priority
+        />
+      </div>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="userid"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>사용자 아이디</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your userid" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
-        <div>
-          <Label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            패스워드
-          </Label>
-          <Input
-            {...formData.register("password")}
-            id="password"
-            placeholder="Enter your password"
-            type="password"
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>패스워드</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
-        <Button
-          className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
-          disabled={isPending}
-          onClick={formData.handleSubmit(handleSubmit)}
-        >
-          {isPending ? "로그인 중..." : "로그인"}
-        </Button>
-      </form>
+
+          <Button
+            type="submit"
+            className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200"
+            disabled={isPending}
+          >
+            {isPending ? "로그인 중..." : "로그인"}
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 }

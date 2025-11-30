@@ -26,13 +26,9 @@ npm install
 # 서버 실행 (POST /login 커스텀 처리 포함)
 node mock-server.js
 
+# 그리드 라이브러리 
 
-
-- npm install 에러시 npm install -legacy-peer-deps 
-- 프로젝트 생성 : npx create-next-app@latest src 디렉토리 선택
-
-- middleware.ts 추가 : src 디렉토리 아래 존재
-
+??? middleware.ts 새로 만들어 달라고 하고 
 
 
 # 처리 사항
