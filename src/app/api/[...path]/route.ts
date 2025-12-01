@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { deleteSession, getTokens, createSession } from '@/app/actions/auth-actions';
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 
 
