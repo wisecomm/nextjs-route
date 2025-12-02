@@ -3,8 +3,6 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { FONT_NOTOSANSKR } from "./utils/fonts";
-import { Suspense } from "react";
-import { NavigationEvents } from "@/components/navigation-events";
 
 export const metadata: Metadata = {
   title: "Email Analyze App",
@@ -23,9 +21,6 @@ export default function RootLayout({
         className={cn(`${FONT_NOTOSANSKR.className} antialiased`)}
       >
         {children}
-        <Suspense fallback={null}>
-          <NavigationEvents />
-        </Suspense>
         {/* SHADCN Toaster 사용함 */}
         <Toaster />
       </body>
